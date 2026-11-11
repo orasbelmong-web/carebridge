@@ -57,13 +57,27 @@ svg{width:100%;height:auto;display:block}
 .tier{border-radius:12px;padding:16px;color:#fff;margin-bottom:8px}
 .tier h4{margin:0}
 .tier p{margin:4px 0 0;font-size:14px}
+.zts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.zs{border:2px solid var(--line);border-radius:12px;padding:14px;background:var(--card);transition:.3s;cursor:pointer}
+.zs.on{border-color:var(--teal);box-shadow:0 0 0 3px color-mix(in srgb,var(--teal) 25%,transparent)}
+.zs b{display:block;color:var(--navy);margin-bottom:4px}
+.quote{margin:18px 0 0;font-size:clamp(17px,3vw,22px);font-weight:700;text-align:center}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.chip{flex:1;min-width:150px;border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center;background:var(--card)}
+.chip b{display:block;font-size:28px;color:var(--red)}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+th,td{border:1px solid var(--line);padding:12px;text-align:center}
+th{background:var(--card)}
+tr.cb td,tr.cb th{background:color-mix(in srgb,var(--teal) 14%,var(--card));font-weight:600}
+tr.cb td b{color:var(--navy)}
 footer{text-align:center;color:var(--mut);padding:56px 20px 40px;font-size:14px}
 footer h3{color:var(--ink);font-size:clamp(20px,4vw,28px);margin:0 0 8px}
 .tog{float:right}
 </style>
 </head>
 <body>
-<nav><b>CareBridge AI</b><a href="#problem">문제</a><a href="#hgi">HGI</a><a href="#sim">예측 시뮬레이터</a><a href="#arch">아키텍처</a><a href="#biz">수익 모델</a><a href="#impact">파급 효과</a></nav>
+<nav><b>CareBridge AI</b><a href="#problem">문제</a><a href="#hgi">HGI</a><a href="#sim">예측 시뮬레이터</a><a href="#aging">노령화</a><a href="#zt">Zero-Touch</a><a href="#arch">아키텍처</a><a href="#shift">패러다임</a><a href="#biz">수익 모델</a><a href="#impact">파급 효과</a></nav>
 
 <header class="hero">
 <small>2026 빅데이터 활용 현장문제 해결 경진대회 제출작</small>
@@ -114,9 +128,33 @@ footer h3{color:var(--ink);font-size:clamp(20px,4vw,28px);margin:0 0 8px}
 </div></div>
 </section>
 
+<section id="aging" style="padding-top:24px">
+<h2>노령화 지수로 본 취약 지역</h2>
+<p class="sub">통계청·인구주택총조사 원천 데이터 분석 결과 (유소년 인구 대비 고령 인구 비율)</p>
+<div class="chips">
+<div class="chip"><b>261.74</b>전남 노령화 지수</div>
+<div class="chip"><b>259.16</b>경북 노령화 지수</div>
+<div class="chip"><b>256.69</b>강원 노령화 지수</div>
+</div>
+<div class="card"><b>Key Insight</b><p style="margin:6px 0 0">전남·경북 지역은 유소년 인구 100명당 고령 인구 비율이 압도적으로 높으며, 이는 심각한 의료 수요 폭증으로 직결됩니다.</p></div>
+</section>
+
+<section id="zt">
+<h2>Zero-Touch UX</h2>
+<p class="sub">행동 마찰 없는 생체 데이터 파이프라인 · ‘Friction Zero’ — 앱 구동이 필요 없습니다.</p>
+<div class="zts" id="zts">
+<div class="zs"><b>Step 1. 일상 측정</b>환자가 혈압·혈당을 측정합니다.</div>
+<div class="zs"><b>Step 2. 자동 페어링</b>기기 내 모듈이 백그라운드 자동 통신(Bluetooth/NFC)을 합니다.</div>
+<div class="zs"><b>Step 3. 클라우드 동기화</b>암호화된 생체 데이터가 실시간 전송됩니다.</div>
+</div>
+<p class="note" id="zmsg" style="margin-top:10px"></p>
+<div class="row"><button id="zrun">Zero-Touch 시연</button></div>
+<p class="quote">디지털 소외 계층인 시니어에게 가장 완벽한 앱은<br>‘조작할 필요가 없는 앱’입니다.</p>
+</section>
+
 <section id="sim">
 <h2>지능형 예방 메커니즘 체험</h2>
-<p class="sub">Zero-Touch 생체 수집 → 위험 임계점 감지 → 환자·보건소·보호자 삼각 알림.</p>
+<p class="sub">Zero-Touch 생체 수집 → 위험 임계점 감지 → 환자·보건소·보호자 삼각 알림. 급성 합병증 징후와 복약 이탈(Medication Non-compliance) 패턴을 선제적으로 감지합니다.</p>
 <div class="card">
 <b>수축기 혈압 실시간 스트림 <span class="note">(데모 시뮬레이션 · 실제 XGBoost/LSTM 모델이 아닙니다)</span></b>
 <svg viewBox="0 0 600 200" id="chart" role="img" aria-label="혈압 시계열">
@@ -146,6 +184,17 @@ footer h3{color:var(--ink);font-size:clamp(20px,4vw,28px);margin:0 0 8px}
 <div class="card" style="margin-top:12px" id="fd"></div>
 </section>
 
+<section id="shift">
+<h2>Paradigm Shift</h2>
+<p class="sub">물리적 인프라에서 디지털 관제로</p>
+<div class="tw card"><table>
+<thead><tr><th></th><th>케어 시점</th><th>정보의 결합</th><th>접근성/비용</th><th>확장성</th></tr></thead>
+<tbody>
+<tr><th>오프라인<br>병원 중심</th><td>사후 치료<br>(발병 후 응급실)</td><td>단편적 진료실 데이터</td><td>높은 지리적 장벽 / 막대한 건립비</td><td>의료 인력 비례 물리적 한계</td></tr>
+<tr class="cb"><th>CareBridge AI<br>중심</th><td><b>선제적 예방</b><br>(이상 사전 감지)</td><td>진료 이력 + 24시간 <b>라이프로그</b></td><td>Zero-Touch / SaaS 기반 <b>저비용</b></td><td><b>소프트웨어 복제</b> 무한 확장</td></tr>
+</tbody></table></div>
+</section>
+
 <section id="biz">
 <h2>확장 가능한 플랫폼 수익 모델</h2>
 <p class="sub">B2G를 기반으로 B2B, B2C로 확장.</p>
@@ -160,7 +209,7 @@ footer h3{color:var(--ink);font-size:clamp(20px,4vw,28px);margin:0 0 8px}
 <div class="grid">
 <div class="card"><h3>보건 재정 절감</h3><p>응급 입원율 25% 절감 기대. 선제 예방으로 건강보험과 지자체 재정 건전성 확보.</p></div>
 <div class="card"><h3>MIS 데이터 경영</h3><p>정적 공공 원천 데이터와 동적 라이프로그를 융합한 Data-Driven Healthcare 생태계.</p></div>
-<div class="card"><h3>사회적 포용성</h3><p>지자체별 의료 인프라 격차 해소, Zero-Touch·음성 UX로 디지털 소외 극복.</p></div>
+<div class="card"><h3>사회적 포용성 (ESG)</h3><p>지자체별 의료 인프라 격차 해소, Zero-Touch·음성 UX로 디지털 소외 극복.</p></div>
 </div>
 </section>
 
@@ -178,7 +227,7 @@ document.querySelectorAll('[data-n]').forEach(function(el){
 });
 // HGI bars
 var R=[["전남",211.7],["경북",207.9],["강원",166.7],["충북",166.8],["전북",122.6],["충남",111.0],["경남",89.6],["제주",66.2],["울산",54.5],["부산",47.7]];
-var msg={"전남":"전남은 HGI 211.7로 전국 평균의 2배 이상, 가장 취약한 지역입니다.","경북":"경북은 207.9로 전남과 함께 실질적 취약 지역으로 확인되었습니다."};
+var msg={"전남":"전남은 HGI 211.7(노령화 지수 261.74)로 전국 평균의 2배 이상, 가장 취약한 지역입니다.","경북":"경북은 HGI 207.9(노령화 지수 259.16)로 전남과 함께 실질적 취약 지역으로 확인되었습니다.","강원":"강원은 HGI 166.7, 노령화 지수 256.69입니다."};
 var bars=document.getElementById('bars');
 R.forEach(function(r){
  var d=document.createElement('div');d.className='bar';
@@ -231,6 +280,13 @@ setInterval(tick,600);
 document.getElementById('spike').onclick=function(){mode=1};
 document.getElementById('calm').onclick=function(){mode=0};
 document.getElementById('voice').onclick=function(){voice=!voice;this.textContent='음성 가이드: '+(voice?'켬':'끔')};
+// zero-touch
+var ZM=["환자가 혈압·혈당을 평소처럼 측정합니다. 앱을 열 필요가 없어요.","기기 내 모듈이 백그라운드에서 자동으로 통신합니다.","암호화된 생체 데이터가 클라우드로 실시간 전송됩니다."];
+var zs=document.querySelectorAll('.zs'),zt=null;
+function zset(i){zs.forEach(function(e,k){e.classList.toggle('on',k<=i&&i>=0)});document.getElementById('zmsg').textContent=i>=0?ZM[i]:''}
+zs.forEach(function(e,k){e.onclick=function(){clearInterval(zt);zset(k)}});
+document.getElementById('zrun').onclick=function(){clearInterval(zt);var i=-1;zset(-1);zt=setInterval(function(){i++;zset(i);if(i>=2)clearInterval(zt)},1100)};
+zset(0);
 // architecture
 var S=[["1. Data Ingestion (수집)","IoT 생체 기기(혈압·혈당·양압기) 연동, 마이헬스웨이(MyHealthWay) API 연계.","#0f3d73"],
 ["2. Preprocessing (전처리)","실시간 데이터 비식별화·암호화, 결측치 보정 및 시계열 가공 파이프라인.","#2a5fa3"],
