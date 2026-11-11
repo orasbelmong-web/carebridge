@@ -71,13 +71,34 @@ th,td{border:1px solid var(--line);padding:12px;text-align:center}
 th{background:var(--card)}
 tr.cb td,tr.cb th{background:color-mix(in srgb,var(--teal) 14%,var(--card));font-weight:600}
 tr.cb td b{color:var(--navy)}
+.tabs{display:flex;gap:6px;margin:6px 0 12px;flex-wrap:wrap}
+.tabs button{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.tabs button.on{background:var(--navy);color:var(--card);border-color:var(--navy)}
+.pane{display:none}.pane.on{display:block}
+.phone{max-width:340px;margin:0 auto;border:3px solid var(--ink);border-radius:28px;padding:16px;background:var(--card)}
+.ph-h{display:flex;justify-content:space-between;font-size:13px;color:var(--mut);margin-bottom:6px}
+.ph-bp{font-size:44px;font-weight:800;line-height:1.1}
+.ph-bp small{font-size:15px;font-weight:500;color:var(--mut)}
+.bubble{border-radius:14px;padding:12px;background:color-mix(in srgb,var(--teal) 14%,var(--card));font-size:15px;margin-top:10px;transition:.3s}
+.bubble.alert{background:color-mix(in srgb,var(--red) 14%,var(--card));border:1px solid var(--red)}
+.feed{list-style:none;margin:10px 0 0;padding:0;font-size:13px}
+.feed li{padding:7px 0;border-top:1px solid var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.kpi{border:1px solid var(--line);border-radius:10px;padding:8px;text-align:center;font-size:13px;color:var(--mut)}
+.kpi b{display:block;font-size:24px;color:var(--ink)}
+.kpi.r b{color:var(--red)}
+table.dash{min-width:480px}
+tr.hi td{background:color-mix(in srgb,var(--red) 16%,var(--card));font-weight:700}
+tr.md td{background:color-mix(in srgb,var(--warn) 16%,var(--card))}
+.src ul{margin:6px 0 0;padding-left:18px;font-size:14px;color:var(--mut)}
+.src li{margin:4px 0}
 footer{text-align:center;color:var(--mut);padding:56px 20px 40px;font-size:14px}
 footer h3{color:var(--ink);font-size:clamp(20px,4vw,28px);margin:0 0 8px}
 .tog{float:right}
 </style>
 </head>
 <body>
-<nav><b>CareBridge AI</b><a href="#problem">문제</a><a href="#hgi">HGI</a><a href="#sim">예측 시뮬레이터</a><a href="#aging">노령화</a><a href="#zt">Zero-Touch</a><a href="#arch">아키텍처</a><a href="#shift">패러다임</a><a href="#biz">수익 모델</a><a href="#impact">파급 효과</a></nav>
+<nav><b>CareBridge AI</b><a href="#problem">문제</a><a href="#hgi">HGI</a><a href="#sim">예측 시뮬레이터</a><a href="#aging">노령화</a><a href="#zt">Zero-Touch</a><a href="#arch">아키텍처</a><a href="#shift">패러다임</a><a href="#biz">수익 모델</a><a href="#impact">파급 효과</a><a href="#src">출처</a></nav>
 
 <header class="hero">
 <small>2026 빅데이터 활용 현장문제 해결 경진대회 제출작</small>
@@ -169,12 +190,35 @@ footer h3{color:var(--ink);font-size:clamp(20px,4vw,28px);margin:0 0 8px}
 <button id="spike">위험 징후 주입</button>
 <button class="alt" id="calm">정상으로 회복</button>
 <button class="alt" id="voice">음성 가이드: 끔</button>
+<button class="alt" id="auto">자동 시연 ▶</button>
 </div>
 <div class="tri">
 <div class="node" id="n1"><h4>환자</h4><span id="t1">정상 범위입니다.</span></div>
 <div class="node" id="n2"><h4>보건소</h4><span id="t2">관제 대시보드: 정상</span></div>
 <div class="node" id="n3"><h4>보호자</h4><span id="t3">알림 없음</span></div>
 </div></div>
+<div class="card" style="margin-top:14px">
+<b>역할별 화면</b> <span class="note">같은 데이터가 세 곳에 실시간으로 반영됩니다. 위 시뮬레이터를 조작해 보세요.</span>
+<div class="tabs" id="tabs"><button class="on" data-t="p">환자 (스마트폰)</button><button data-t="g">보호자 앱</button><button data-t="c">보건소 관제</button></div>
+<div class="pane on" id="pane-p"><div class="phone">
+<div class="ph-h"><span>CareBridge AI</span><span>자동 측정 중</span></div>
+<div class="ph-bp"><span id="pbp">–</span> <small>mmHg</small></div>
+<div class="bubble" id="pb">오늘도 건강하세요. 측정값이 자동으로 기록되고 있어요.</div>
+<p class="note" style="margin:10px 0 0">앱을 열거나 버튼을 누를 필요가 없습니다. (Zero-Touch)</p>
+</div></div>
+<div class="pane" id="pane-g"><div class="phone">
+<div class="ph-h"><span>부모님 건강 리포트</span><span>어머니 · 전남 ○○군</span></div>
+<div class="ph-bp"><span id="gbp">–</span> <small>mmHg</small> <span class="pill" id="gs">정상</span></div>
+<ul class="feed" id="gf"><li class="note">아직 알림이 없습니다.</li></ul>
+<div class="row"><button id="gcall">전화하기</button><button class="alt" id="gnurse">간호사 1:1 상담</button></div>
+<p class="note" id="gmsg" style="margin:8px 0 0">B2C 프리미엄: 실시간 리포트 · 전문 간호사 상담 구독</p>
+</div></div>
+<div class="pane" id="pane-c">
+<div class="kpis"><div class="kpi">관제 대상<b id="k1">5</b></div><div class="kpi r">위험군<b id="k2">0</b></div><div class="kpi">누적 알림<b id="k3">0</b></div></div>
+<div class="tw"><table class="dash"><thead><tr><th>어르신</th><th>지역</th><th>수축기 혈압</th><th>위험도</th><th>상태</th></tr></thead><tbody id="dtb"></tbody></table></div>
+<p class="note" style="margin-top:8px">★ = 위 시뮬레이터와 연동된 어르신 · 나머지 명단과 수치는 시연용 가상 데이터입니다.</p>
+</div>
+</div>
 </section>
 
 <section id="arch">
@@ -213,6 +257,24 @@ footer h3{color:var(--ink);font-size:clamp(20px,4vw,28px);margin:0 0 8px}
 </div>
 </section>
 
+<section id="src" class="src">
+<h2>데이터 출처와 한계</h2>
+<p class="sub">무엇이 실제 분석 결과이고 무엇이 시연용인지 구분합니다.</p>
+<div class="grid">
+<div class="card"><h3>활용 데이터</h3><ul>
+<li>국민건강보험공단 5개년 시계열 원천 데이터(435행): 만성질환 분석, HGI 산출</li>
+<li>통계청·인구주택총조사: 노령화 지수</li>
+<li>17개 광역시도 고령 인구 구조 및 의료 인프라 용량 지표(공공 통계)</li>
+<li>마이헬스웨이(MyHealthWay): 연계 대상 API</li>
+<li>자료명·기준연도 등 세부 사항은 제출 보고서를 따릅니다.</li></ul></div>
+<div class="card"><h3>이 데모의 한계</h3><ul>
+<li>혈압 스트림, 보호자·보건소 화면의 알림과 명단은 가상 데이터이며 실제 XGBoost/LSTM 모델이 아닙니다.</li>
+<li>HGI 시뮬레이터의 기준값은 체험용 가정치입니다.</li>
+<li>환자 추이 차트는 추세를 단순화한 개략도입니다.</li>
+<li>의료 진단 도구가 아닙니다.</li></ul></div>
+</div>
+</section>
+
 <footer>
 <h3>물리적 병원의 한계, 데이터로 연결하고 AI로 케어합니다.</h3>
 <p>CareBridge AI | Team Data-Care Innovators · 김기윤</p>
@@ -231,7 +293,7 @@ var msg={"전남":"전남은 HGI 211.7(노령화 지수 261.74)로 전국 평균
 var bars=document.getElementById('bars');
 R.forEach(function(r){
  var d=document.createElement('div');d.className='bar';
- d.innerHTML='<span>'+r[0]+'</span><div class="track"><i></i></div><span>'+r[1]+'</span>';
+ d.innerHTML='<span>'+r[0]+'</span><div class="track"><i></i></div><span>'+r[1].toFixed(1)+'</span>';
  d.onclick=function(){bars.querySelectorAll('.bar').forEach(function(x){x.classList.remove('sel')});d.classList.add('sel');
   document.getElementById('insight').textContent=msg[r[0]]||(r[0]+' HGI '+r[1]+(r[1]>100?' · 전국 평균 초과':' · 전국 평균 이하'));};
  bars.appendChild(d);
@@ -257,7 +319,7 @@ var Y=function(x){return 190-(x-90)*(180/90)};
 document.getElementById('thr').setAttribute('y1',Y(thr));document.getElementById('thr').setAttribute('y2',Y(thr));
 document.getElementById('thrt').setAttribute('y',Y(thr)-5);
 function speak(t){if(!voice||!window.speechSynthesis)return;try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='ko-KR';u.rate=.9;speechSynthesis.speak(u)}catch(e){}}
-function setNodes(on){
+function setNodes(on){logEv(on);
  ['n1','n2','n3'].forEach(function(id){document.getElementById(id).classList.toggle('on',on)});
  document.getElementById('t1').textContent=on?'“어르신, 혈압이 평소보다 높습니다. 약을 드실 시간입니다.”':'정상 범위입니다.';
  document.getElementById('t2').textContent=on?'관제 대시보드에 위험군 적색 표출':'관제 대시보드: 정상';
@@ -276,9 +338,42 @@ function tick(){
  if(over&&!alerted){alerted=true;setNodes(true);speak('어르신, 혈압이 평소보다 높습니다. 약을 드실 시간입니다.')}
  if(!over&&alerted&&v<thr-6){alerted=false;setNodes(false)}
 }
-setInterval(tick,600);
-document.getElementById('spike').onclick=function(){mode=1};
-document.getElementById('calm').onclick=function(){mode=0};
+var SR=[["김○○ (78) ★","전남 ○○군",0],["박○○ (82)","경북 ○○군",135],["이○○ (74)","강원 ○○군",126],["최○○ (80)","전남 ○○군",133],["정○○ (76)","충북 ○○군",119]];
+var feed=[],ac=0,at=[];
+function stt(b){return b>=140?["위험","hi"]:b>=130?["주의","md"]:["정상",""]}
+function risk(b){return Math.round(Math.max(0,Math.min(100,(b-110)/50*100)))}
+function ts(){return new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}
+function logEv(on){
+ if(on){ac++;feed.unshift(ts()+' ⚠ 혈압 '+Math.round(v)+' mmHg · 임계점 초과, 푸시 알림 발송')}
+ else if(feed.length){feed.unshift(ts()+' ✔ 혈압 안정, 정상 범위로 돌아왔습니다')}
+ feed=feed.slice(0,5);
+ document.getElementById('gf').innerHTML=feed.map(function(x){return '<li>'+x+'</li>'}).join('');
+}
+function paint(){
+ var b=Math.round(v),st=stt(v);
+ document.getElementById('pbp').textContent=b;document.getElementById('gbp').textContent=b;
+ var pb=document.getElementById('pb');pb.classList.toggle('alert',alerted);
+ pb.textContent=alerted?'“어르신, 혈압이 평소보다 높습니다. 약을 드실 시간입니다.”':'오늘도 건강하세요. 측정값이 자동으로 기록되고 있어요.';
+ var g=document.getElementById('gs');g.textContent=st[0];g.style.background=st[0]=='위험'?'#c0281f':st[0]=='주의'?'#c97a10':'#1f8a6b';
+ var rows=SR.map(function(r,i){return {n:r[0],a:r[1],b:i==0?v:r[2]+Math.sin(Date.now()/4000+i)*3}}).sort(function(x,y){return y.b-x.b});
+ var hi=0;
+ document.getElementById('dtb').innerHTML=rows.map(function(r){var s=stt(r.b);if(s[0]=='위험')hi++;
+  return '<tr class="'+s[1]+'"><td>'+r.n+'</td><td>'+r.a+'</td><td>'+Math.round(r.b)+'</td><td>'+risk(r.b)+'</td><td>'+s[0]+'</td></tr>'}).join('');
+ document.getElementById('k2').textContent=hi;document.getElementById('k3').textContent=ac;
+}
+document.getElementById('tabs').onclick=function(e){var t=e.target.dataset&&e.target.dataset.t;if(!t)return;
+ this.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x.dataset.t==t)});
+ ['p','g','c'].forEach(function(k){document.getElementById('pane-'+k).classList.toggle('on',k==t)})};
+document.getElementById('gcall').onclick=function(){document.getElementById('gmsg').textContent='어머니께 전화를 겁니다… (시연)'};
+document.getElementById('gnurse').onclick=function(){document.getElementById('gmsg').textContent='전문 간호사 1:1 상담에 연결합니다… (시연)'};
+function clearAuto(){at.forEach(clearTimeout);at=[];document.getElementById('auto').textContent='자동 시연 ▶'}
+setInterval(function(){tick();paint()},600);paint();
+document.getElementById('spike').onclick=function(){clearAuto();mode=1};
+document.getElementById('calm').onclick=function(){clearAuto();mode=0};
+document.getElementById('auto').onclick=function(){clearAuto();mode=0;this.textContent='시연 중…';
+ at.push(setTimeout(function(){mode=1},2500));
+ at.push(setTimeout(function(){mode=0},12000));
+ at.push(setTimeout(clearAuto,20000))};
 document.getElementById('voice').onclick=function(){voice=!voice;this.textContent='음성 가이드: '+(voice?'켬':'끔')};
 // zero-touch
 var ZM=["환자가 혈압·혈당을 평소처럼 측정합니다. 앱을 열 필요가 없어요.","기기 내 모듈이 백그라운드에서 자동으로 통신합니다.","암호화된 생체 데이터가 클라우드로 실시간 전송됩니다."];
