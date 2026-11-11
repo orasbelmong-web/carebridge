@@ -68,7 +68,7 @@ footer{padding:36px 0 56px;color:var(--mut);font-size:14px}footer b{display:bloc
 <h2>환자는 고령층에 몰리고, 돌봄 거점은 농어촌에 흩어져 있습니다</h2>
 <p class="lead" style="font-size:16px">수요는 고령 환자가 늘며 커지는데, 이를 받치는 접점은 보건소 외에도 보건지소·보건진료소 수천 곳으로 분산돼 있습니다. 방문 의존도가 높은 구조입니다.</p>
 <div class="cols"><div><h3>폭증하는 수요</h3><p class="mut">65세 이상 환자는 4년간 27.5% 늘었고, 80세 이상은 31.4% 늘었습니다. 65세 미만은 14.9%입니다.</p></div><div><h3>분산된 공급</h3><p class="mut">보건진료소 1,894곳 중 전남·경북·전북·충남·경남 5개 도에 약 70%가 있습니다.</p></div><div><h3>전환의 필요</h3><p class="mut">방문을 기다리는 구조에서, 일상 데이터가 먼저 신호를 보내는 선제적 디지털 케어로의 전환이 필요합니다.</p></div></div>
-<div class="fig"><b>만성질환 환자 추이 (2020 → 2024)</b><div id="trend"></div><p class="note" style="margin:6px 0 0">건강보험+의료급여 합계. 환자수 ‘*’(비공개) 16개 셀은 제외해 실제보다 소폭 적을 수 있습니다.</p></div>
+<div class="fig"><b>만성질환 환자 추이 (2020 → 2024)</b><div id="trend"></div><p class="note" style="margin:6px 0 0">건강보험+의료급여 합계. 환자수 ‘*’(비공개) 16개 셀은 0으로 처리해 실제보다 소폭 적을 수 있습니다.</p></div>
 </div></section>
 
 <section id="vs"><aside><b>02</b>LANDSCAPE</aside><div>
@@ -109,14 +109,19 @@ footer{padding:36px 0 56px;color:var(--mut);font-size:14px}footer b{display:bloc
 <h2>HGI 계산기 · 예측 시뮬레이터</h2>
 <p class="lead" style="font-size:16px">HGI = (고령화율 × 만성질환 가중치) ÷ (1만명당 전문의수 × 0.7 + 상급종합병원수 × 2.5) × 100</p>
 <div class="cols"><div><label>고령화율 (%) <b id="v1"></b></label><input id="r1" type="range" min="8" max="40" value="19"><label>만성질환 가중치 <b id="v4"></b></label><input id="r4" type="range" min="5" max="20" value="10"><label>1만명당 전문의수 <b id="v2"></b></label><input id="r2" type="range" min="2" max="40" value="20"><label>상급종합병원수 <b id="v3"></b></label><input id="r3" type="range" min="0" max="6" value="1"></div><div><span class="big" id="hv">100</span><p class="mut" id="hl"></p><p class="note">직접 넣는 가정값 계산기입니다. 기준점(기본 슬라이더 값)을 100으로 둔 상대 지수이며, 업로드 데이터로 산출한 실제 지역 지수가 아닙니다.</p></div></div>
+<div class="kpi" style="margin-top:24px"><div><span class="num">211.7</span><span>전남 HGI (전국 평균 = 100)</span></div><div><span class="num">207.9</span><span>경북 HGI (전국 평균 = 100)</span></div></div>
+<p class="note" style="margin-top:8px"><b>발표 자료의 산출 결과</b>입니다. 이 사이트에는 HGI 산출에 쓴 인구·전문의 수 원천 데이터가 없어 위 계산기로 재현할 수 없습니다. 산출 과정: ① 건보공단 5개년 시계열 정수 스케일링, 비공개(‘*’) 0 처리 → ② 17개 광역시도 고령 인구 구조와 의료 인프라 용량 지표 통합 → ③ 수요 대비 공급 비율을 구해 전국 평균 100 기준으로 표준화.</p>
 </div></section>
 
 <section id="aging"><aside><b>06</b>AGING</aside><div>
 <h2>환자 구조로 본 고령화</h2>
 <div class="kpi" style="margin-top:8px"><div><span class="num">45.6%</span><span>2024 환자 중 65세 이상</span></div><div><span class="num">58.0%</span><span>65세 이상 환자 중 여성 (354만 / 612만)</span></div><div><span class="num">61.1%</span><span>의료급여 환자 중 65세 이상 (건강보험은 44.8%)</span></div></div>
+<p class="note" style="margin-top:8px">남녀 비율은 50.1 : 49.9로 거의 같습니다. 환자가 가장 많은 연령대는 60–64세(209만 명), 65–69세(205만 명), 55–59세(175만 명) 순입니다.</p>
 <div class="fig"><b>2024 연령대별 환자 수 · 남성 ◀ ▶ 여성</b><div id="pyr"></div></div>
 <div class="fig"><b>연령대별 환자 증가율 (2020 → 2024)</b><div id="gro"></div><p class="note" style="margin:6px 0 0">건강보험+의료급여 합계. 의료급여 환자는 같은 기간 +16.9%, 건강보험 환자는 +20.5%입니다.</p></div>
-<div class="cols" style="border-top:2px solid var(--acc)"><div><h3 style="color:var(--acc)">Key Insight</h3><p class="mut">85세 이상 환자는 4년 새 43.0% 늘어 가장 가파릅니다. 저소득 환자(의료급여)일수록, 그리고 여성일수록 고령 비중이 큽니다. 방문 진료가 어려운 고령·여성·저소득 환자에게 Zero-Touch가 필요한 이유입니다.</p></div><div><h3>데이터 한계</h3><p class="mut">제공된 SGIS 고령화 파일에는 인구 수치 열이 없어(지역·항목 이름만 있음) 노령화 지수는 산출하지 않았습니다. 수치가 담긴 파일을 주시면 반영하겠습니다.</p></div></div>
+<div class="kpi" style="margin-top:24px"><div><span class="num">261.74</span><span>전남 노령화 지수</span></div><div><span class="num">259.16</span><span>경북 노령화 지수</span></div><div><span class="num">256.69</span><span>강원 노령화 지수</span></div></div>
+<p class="note" style="margin:8px 0 20px"><b>발표 자료의 값</b>(통계청·인구주택총조사 원천 데이터 분석)입니다. 전남·경북은 유소년 인구 100명당 고령 인구 비율이 압도적으로 높아 의료 수요 폭증으로 직결됩니다.</p>
+<div class="cols" style="border-top:2px solid var(--acc)"><div><h3 style="color:var(--acc)">Key Insight</h3><p class="mut">85세 이상 환자는 4년 새 43.0% 늘어 가장 가파릅니다. 저소득 환자(의료급여)일수록, 그리고 여성일수록 고령 비중이 큽니다. 방문 진료가 어려운 고령·여성·저소득 환자에게 Zero-Touch가 필요한 이유입니다.</p></div><div><h3>데이터 한계</h3><p class="mut">제공된 SGIS 고령화 파일에는 인구 수치 열이 없어(지역·항목 이름만 있음) 이 사이트에서 노령화 지수를 직접 산출하지는 못했습니다. 위 노령화 지수는 발표 자료의 값입니다.</p></div></div>
 </div></section>
 
 <section id="fc"><aside><b>07</b>FORECAST</aside><div>
@@ -157,7 +162,7 @@ footer{padding:36px 0 56px;color:var(--mut);font-size:14px}footer b{display:bloc
 <div class="cols"><div><label>관리 대상 비율 (65세 이상 환자 중) <b id="k1"></b></label><input id="q1" type="range" min="1" max="30" value="5"><label>연간 응급 입원 발생률 (가정) <b id="k2"></b></label><input id="q2" type="range" min="1" max="30" value="8"><label>응급 입원 감소율 (발표 기대치 25%) <b id="k3"></b></label><input id="q3" type="range" min="0" max="50" value="25"><label>1건당 응급 입원 비용 (가정) <b id="k4"></b></label><input id="q4" type="range" min="100" max="1000" step="50" value="400"></div><div><span class="big" id="kv"></span><p class="mut" id="kd" style="margin-top:8px"></p><p class="note">입원 건수 × 건당 비용으로 단순 계산한 시나리오이며 실제 절감액이 아닙니다.</p></div></div></div></section>
 
 <section id="src" style="border-bottom:0"><aside><b>13</b>SOURCES</aside><div><h2>데이터 출처와 한계</h2>
-<div class="cols"><div><h3>활용 데이터</h3><ul class="l"><li>국민건강보험공단, 연도별·연령별·성별 만성질환 환자 현황(2020–2024, 435행)</li><li>보건복지부, 전국 지역보건의료기관 현황(2025.12.31, 3,607개소)</li><li>국가데이터처 SGIS 고령화 현황 지표별 데이터(2024.12.31) · 수치 열 없음, 노령화 지수는 미산출</li><li>마이헬스웨이(MyHealthWay): 연계 대상 API</li></ul></div><div><h3>이 데모의 한계</h3><ul class="l"><li>혈압 스트림, 보호자·보건소 화면의 알림과 명단은 가상 데이터이며 실제 XGBoost/LSTM 모델이 아닙니다.</li><li>HGI·절감 효과 계산기는 가정값 입력 도구입니다.</li><li>시군구 탐색은 기관 수 기준이며 인구로 보정하지 않았습니다.</li><li>예측은 5개 연도 선형 추세 외삽(백테스트 오차 공개)이며 인구 구조·정책 변화는 반영하지 않았습니다.</li><li>환자수 ‘*’(비공개) 셀은 합계에서 제외했습니다.</li><li>의료 진단 도구가 아닙니다.</li></ul></div></div></div></section>
+<div class="cols"><div><h3>활용 데이터</h3><ul class="l"><li>국민건강보험공단, 연도별·연령별·성별 만성질환 환자 현황(2020–2024, 435행)</li><li>보건복지부, 전국 지역보건의료기관 현황(2025.12.31, 3,607개소)</li><li>국가데이터처 SGIS 고령화 현황 지표별 데이터(2024.12.31) · 수치 열 없음, 노령화 지수는 미산출</li><li>마이헬스웨이(MyHealthWay): 연계 대상 API</li></ul></div><div><h3>이 데모의 한계</h3><ul class="l"><li>혈압 스트림, 보호자·보건소 화면의 알림과 명단은 가상 데이터이며 실제 XGBoost/LSTM 모델이 아닙니다.</li><li>HGI·절감 효과 계산기는 가정값 입력 도구입니다.</li><li>시군구 탐색은 기관 수 기준이며 인구로 보정하지 않았습니다.</li><li>예측은 5개 연도 선형 추세 외삽(백테스트 오차 공개)이며 인구 구조·정책 변화는 반영하지 않았습니다.</li><li>환자수 ‘*’(비공개) 셀은 0으로 처리했습니다.</li><li>의료 진단 도구가 아닙니다.</li></ul></div></div></div></section>
 <footer><b>물리적 병원의 한계, 데이터로 연결하고 AI로 케어합니다.</b>CareBridge AI | Team Data-Care Innovators · 김기윤</footer>
 </div>
 <script>
@@ -200,15 +205,15 @@ var q=[1,2,3,4].map(function(i){return $('q'+i)});
 function kc(){var p=+q[0].value,a=+q[1].value,c=+q[2].value,w=+q[3].value;$('k1').textContent=p+'%';$('k2').textContent=a+'%';$('k3').textContent=c+'%';$('k4').textContent=f(w)+'만원';var N=6119357*p/100,ad=N*a/100,rd=ad*c/100,sv=rd*w/1e4;$('kv').textContent=(sv>=100?f(Math.round(sv)):sv.toFixed(1))+'억 원';$('kd').textContent='관리 대상 '+f(Math.round(N/1e4*10)/10)+'만 명(보건소·의료원 1곳당 약 '+f(Math.round(N/263))+'명) · 응급 입원 연 '+f(Math.round(rd))+'건 감소'}
 q.forEach(function(x){x.addEventListener('input',kc)});kc();
 // arch
-var A=[['① 데이터 수집','혈압계·혈당계 측정값과 마이헬스웨이(MyHealthWay) 연계 데이터를 모읍니다.'],['② 자동 전송','기기 내 모듈이 Bluetooth/NFC로 백그라운드 통신합니다. 사용자의 조작은 필요 없습니다.'],['③ 클라우드 동기화','암호화된 생체 데이터가 실시간 전송되고 공공 데이터와 결합됩니다.'],['④ AI 분석','위험 임계점과 복약 이탈 패턴을 감지합니다. (XGBoost/LSTM은 계획 단계, 데모는 시뮬레이션)'],['⑤ 알림·관제','환자 음성 안내, 보건소 관제 대시보드, 보호자 앱으로 삼각 알림을 보냅니다.']];
+var A=[['1. Data Ingestion (수집)','IoT 생체 기기(혈압·혈당·양압기)를 연동하고 마이헬스웨이(MyHealthWay) API를 연계합니다.'],['2. Preprocessing (전처리)','실시간 데이터 비식별화와 암호화, 결측치 보정, 시계열 가공 파이프라인을 거칩니다.'],['3. AI Analytics (분석)','XGBoost/LSTM 모델로 복약 이탈과 급성 합병증 위험 스코어링을 산출합니다. (데모는 시뮬레이션이며 모델은 계획 단계)'],['4. Action Output (실행)','고령자 맞춤형 AI 음성 가이드를 송출하고, 보건소와 보호자 관제 앱으로 긴급 알림을 발송합니다.']];
 function ra(k){$('ab').innerHTML=A.map(function(a,i){return '<button type="button" class="btn'+(i==k?' on':'')+'" data-i="'+i+'">'+a[0]+'</button>'}).join('');$('at').textContent=A[k][0];$('ad').textContent=A[k][1]}
 $('ab').addEventListener('click',function(e){var b=e.target.closest('button');if(b)ra(+b.dataset.i)});ra(0);
 // demo
 var data=[];for(var i=0;i<40;i++)data.push(120);var tgt=120,cur=120,hi=false,vo=false,au=null,cnt=0;
 function dr(){$('ln').setAttribute('points',data.map(function(v,i){return (i*600/39).toFixed(1)+','+(125-(v-90)*(110/70)).toFixed(1)}).join(' '))}
-function ui(){var v=$('bp').textContent;['p1','g1','h1'].forEach(function(i){$(i).textContent=v});$('pm').textContent=hi?'혈압이 높아요. 잠시 앉아 쉬세요.':'오늘도 건강하세요. 측정값이 자동으로 기록되고 있어요.';['gs','hs'].forEach(function(i){$(i).textContent=hi?'위험':'정상';$(i).className='st'+(hi?' r':'')});$('hr').textContent=hi?1:0;$('hn').textContent=cnt;$('t1').textContent=hi?'혈압이 높아요. 잠시 앉아 쉬세요. 보건소와 가족에게 알렸어요.':'정상 범위입니다.';$('t2').textContent=hi?'관제 대시보드: 위험군 1 · 확인 필요':'관제 대시보드: 정상';$('t3').textContent=hi?'어머니 혈압 임계점 초과 · 전화해 보세요':'알림 없음';['c1','c2','c3'].forEach(function(i){$(i).classList.toggle('al',hi)})}
+function ui(){var v=$('bp').textContent;['p1','g1','h1'].forEach(function(i){$(i).textContent=v});$('pm').textContent=hi?'“어르신, 혈압이 평소보다 높습니다. 약을 드실 시간입니다.”':'오늘도 건강하세요. 측정값이 자동으로 기록되고 있어요.';['gs','hs'].forEach(function(i){$(i).textContent=hi?'위험':'정상';$(i).className='st'+(hi?' r':'')});$('hr').textContent=hi?1:0;$('hn').textContent=cnt;$('t1').textContent=hi?'“어르신, 혈압이 평소보다 높습니다. 약을 드실 시간입니다.” 보건소와 가족에게도 알렸어요.':'정상 범위입니다.';$('t2').textContent=hi?'관제 대시보드: 위험군 1 · 확인 필요':'관제 대시보드: 정상';$('t3').textContent=hi?'어머니 혈압 임계점 초과 · 전화해 보세요':'알림 없음';['c1','c2','c3'].forEach(function(i){$(i).classList.toggle('al',hi)})}
 setInterval(function(){cur+=(tgt-cur)*.25;var v=cur+Math.random()*4-2;data.push(v);data.shift();$('bp').textContent=Math.round(v);dr();ui()},500);dr();
-$('b1').onclick=function(){if(hi)return;hi=true;tgt=152;cnt++;var l=$('al');if(l.firstChild&&l.firstChild.textContent.indexOf('아직')==0)l.innerHTML='';var li=document.createElement('li');li.textContent=new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})+' 수축기 혈압 임계점(140) 초과';l.insertBefore(li,l.firstChild);if(vo&&window.speechSynthesis){try{var u=new SpeechSynthesisUtterance('혈압이 높습니다. 잠시 앉아서 쉬세요.');u.lang='ko-KR';speechSynthesis.speak(u)}catch(e){}}};
+$('b1').onclick=function(){if(hi)return;hi=true;tgt=152;cnt++;var l=$('al');if(l.firstChild&&l.firstChild.textContent.indexOf('아직')==0)l.innerHTML='';var li=document.createElement('li');li.textContent=new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})+' 수축기 혈압 임계점(140) 초과';l.insertBefore(li,l.firstChild);if(vo&&window.speechSynthesis){try{var u=new SpeechSynthesisUtterance('어르신, 혈압이 평소보다 높습니다. 약을 드실 시간입니다.');u.lang='ko-KR';speechSynthesis.speak(u)}catch(e){}}};
 $('b2').onclick=function(){hi=false;tgt=120};
 $('b3').onclick=function(){vo=!vo;this.textContent='음성 가이드: '+(vo?'켬':'끔')};
 $('b4').onclick=function(){if(au){clearInterval(au);au=null;this.textContent='자동 시연 ▶';return}this.textContent='자동 시연 ■';(hi?$('b2'):$('b1')).click();au=setInterval(function(){(hi?$('b2'):$('b1')).click()},6000)};
