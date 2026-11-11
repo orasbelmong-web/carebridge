@@ -1,398 +1,216 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="utf-8">
+<html lang="ko"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>CareBridge AI · 지능형 모바일 홈 헬스케어 플랫폼</title>
+<title>CareBridge AI · 공공데이터로 본 홈 헬스케어</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;900&display=swap">
 <style>
-:root{--bg:#f4f3ec;--card:#fff;--ink:#12233b;--mut:#5b6b7e;--line:#d9dccf;--navy:#0f3d73;--teal:#2fa39b;--red:#c0281f;--warn:#e08a1e;--hero:#0a1f3c;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1626;--card:#13233a;--ink:#e8eef6;--mut:#9fb0c4;--line:#243a56;--navy:#6aa6ec;--teal:#4cd0c6;--red:#ff6b5f;--warn:#f2a94a;--hero:#06111f}}
-:root[data-theme="dark"]{--bg:#0b1626;--card:#13233a;--ink:#e8eef6;--mut:#9fb0c4;--line:#243a56;--navy:#6aa6ec;--teal:#4cd0c6;--red:#ff6b5f;--warn:#f2a94a;--hero:#06111f}
-html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;line-height:1.6}
-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;gap:4px;overflow-x:auto;padding:10px 16px;background:var(--bg);border-bottom:1px solid var(--line)}
-nav a{white-space:nowrap;color:var(--mut);text-decoration:none;font-size:14px;padding:6px 12px;border-radius:99px}
-nav a:hover{background:var(--card);color:var(--ink)}
-nav b{color:var(--teal);margin-right:8px;align-self:center}
-.hero{background:var(--hero);color:#fff;text-align:center;padding:72px 20px 64px}
-.hero small{color:#9fc6d8;letter-spacing:.04em}
-.hero h1{font-size:clamp(40px,9vw,76px);margin:14px 0 10px;color:#5fd6cc;letter-spacing:-.02em}
-.hero p{max-width:620px;margin:0 auto;font-size:clamp(16px,2.6vw,21px)}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;max-width:900px;margin:32px auto 0}
-.stat{border:1px solid #2b4a70;border-radius:12px;padding:14px}
-.stat b{display:block;font-size:28px;color:#5fd6cc}
-.stat span{font-size:13px;color:#b8c9dc}
-section{max-width:980px;margin:0 auto;padding:56px 20px 8px}
-h2{font-size:clamp(24px,4vw,34px);margin:0 0 6px}
-.sub{color:var(--mut);margin:0 0 24px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
-.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.bar{display:grid;grid-template-columns:44px 1fr 56px;align-items:center;gap:8px;margin:7px 0;font-size:14px;cursor:pointer}
-.bar i{display:block;height:20px;border-radius:5px;background:var(--red);width:0;transition:width .9s}
-.track{position:relative;background:color-mix(in srgb,var(--line) 50%,transparent);border-radius:5px}
-.track:after{content:"";position:absolute;left:calc(100%/2.2*1);top:-3px;bottom:-3px;border-left:2px dotted var(--ink);opacity:.5}
-.bar.sel{font-weight:700}
-.note{font-size:13px;color:var(--mut)}
-label{display:block;font-size:14px;margin-top:12px}
-label span{float:right;font-weight:700;color:var(--navy)}
-input[type=range]{width:100%;accent-color:var(--teal)}
-.big{font-size:46px;font-weight:800;line-height:1.1}
-.pill{display:inline-block;padding:3px 12px;border-radius:99px;font-size:13px;font-weight:700;color:#fff}
-button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:10px 16px;background:var(--navy);color:#fff;font-weight:600}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) button{color:#06111f}}
-button.alt{background:var(--card);color:var(--ink);border:1px solid var(--line)}
-.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-svg{width:100%;height:auto;display:block}
-.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
-.node{border:2px solid var(--line);border-radius:12px;padding:10px;font-size:13px;transition:.3s;min-height:110px}
-.node h4{margin:0 0 4px;font-size:15px}
-.node.on{border-color:var(--red);background:color-mix(in srgb,var(--red) 12%,var(--card))}
-.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
-.step{padding:16px;border-radius:12px;color:#fff;cursor:pointer;transition:transform .2s}
-.step:hover,.step.on{transform:translateY(-4px);outline:3px solid var(--teal)}
-.step h4{margin:0 0 6px}
-.step p{margin:0;font-size:14px;opacity:.95}
-.tier{border-radius:12px;padding:16px;color:#fff;margin-bottom:8px}
-.tier h4{margin:0}
-.tier p{margin:4px 0 0;font-size:14px}
-.zts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
-.zs{border:2px solid var(--line);border-radius:12px;padding:14px;background:var(--card);transition:.3s;cursor:pointer}
-.zs.on{border-color:var(--teal);box-shadow:0 0 0 3px color-mix(in srgb,var(--teal) 25%,transparent)}
-.zs b{display:block;color:var(--navy);margin-bottom:4px}
-.quote{margin:18px 0 0;font-size:clamp(17px,3vw,22px);font-weight:700;text-align:center}
-.chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
-.chip{flex:1;min-width:150px;border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center;background:var(--card)}
-.chip b{display:block;font-size:28px;color:var(--red)}
-.tw{overflow-x:auto}
-table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
-th,td{border:1px solid var(--line);padding:12px;text-align:center}
-th{background:var(--card)}
-tr.cb td,tr.cb th{background:color-mix(in srgb,var(--teal) 14%,var(--card));font-weight:600}
-tr.cb td b{color:var(--navy)}
-.tabs{display:flex;gap:6px;margin:6px 0 12px;flex-wrap:wrap}
-.tabs button{background:var(--card);color:var(--ink);border:1px solid var(--line)}
-.tabs button.on{background:var(--navy);color:var(--card);border-color:var(--navy)}
-.pane{display:none}.pane.on{display:block}
-.phone{max-width:340px;margin:0 auto;border:3px solid var(--ink);border-radius:28px;padding:16px;background:var(--card)}
-.ph-h{display:flex;justify-content:space-between;font-size:13px;color:var(--mut);margin-bottom:6px}
-.ph-bp{font-size:44px;font-weight:800;line-height:1.1}
-.ph-bp small{font-size:15px;font-weight:500;color:var(--mut)}
-.bubble{border-radius:14px;padding:12px;background:color-mix(in srgb,var(--teal) 14%,var(--card));font-size:15px;margin-top:10px;transition:.3s}
-.bubble.alert{background:color-mix(in srgb,var(--red) 14%,var(--card));border:1px solid var(--red)}
-.feed{list-style:none;margin:10px 0 0;padding:0;font-size:13px}
-.feed li{padding:7px 0;border-top:1px solid var(--line)}
-.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
-.kpi{border:1px solid var(--line);border-radius:10px;padding:8px;text-align:center;font-size:13px;color:var(--mut)}
-.kpi b{display:block;font-size:24px;color:var(--ink)}
-.kpi.r b{color:var(--red)}
-table.dash{min-width:480px}
-tr.hi td{background:color-mix(in srgb,var(--red) 16%,var(--card));font-weight:700}
-tr.md td{background:color-mix(in srgb,var(--warn) 16%,var(--card))}
-.src ul{margin:6px 0 0;padding-left:18px;font-size:14px;color:var(--mut)}
-.src li{margin:4px 0}
-footer{text-align:center;color:var(--mut);padding:56px 20px 40px;font-size:14px}
-footer h3{color:var(--ink);font-size:clamp(20px,4vw,28px);margin:0 0 8px}
-.tog{float:right}
-</style>
-</head>
-<body>
-<nav><b>CareBridge AI</b><a href="#problem">문제</a><a href="#hgi">HGI</a><a href="#sim">예측 시뮬레이터</a><a href="#aging">노령화</a><a href="#zt">Zero-Touch</a><a href="#arch">아키텍처</a><a href="#shift">패러다임</a><a href="#biz">수익 모델</a><a href="#impact">파급 효과</a><a href="#src">출처</a></nav>
+:root{--bg:#f4f0e8;--pn:#fbf8f2;--ink:#1b1a17;--mut:#6a655b;--line:#d8d1c2;--acc:#b23a1e;--acc2:#f0ddd5;--ok:#2f5d4a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15130f;--pn:#1d1a15;--ink:#ece7db;--mut:#a29b8b;--line:#3a362d;--acc:#ec7550;--acc2:#3a231a;--ok:#7fc3a3}}
+:root[data-theme="dark"]{--bg:#15130f;--pn:#1d1a15;--ink:#ece7db;--mut:#a29b8b;--line:#3a362d;--acc:#ec7550;--acc2:#3a231a;--ok:#7fc3a3}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 'Noto Sans KR',system-ui,sans-serif;word-break:keep-all}
+.w{max-width:1080px;margin:0 auto;padding:0 22px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);border-bottom:1px solid var(--ink)}
+nav .w{display:flex;gap:20px;align-items:center;height:50px;overflow-x:auto;white-space:nowrap}
+nav b{font-family:'Noto Serif KR',serif;font-weight:900;margin-right:auto}
+nav a{color:var(--mut);text-decoration:none;font-size:13px}nav a:hover{color:var(--acc)}
+.serif,h1,h2,.num{font-family:'Noto Serif KR',serif}
+header{padding:72px 0 40px;border-bottom:1px solid var(--line)}
+.kick{font-size:12px;letter-spacing:.08em;color:var(--acc);font-weight:700}
+h1{font-size:clamp(34px,6.4vw,66px);line-height:1.18;margin:14px 0 20px;font-weight:900;letter-spacing:-.02em}
+h1 u{text-decoration:none;box-shadow:inset 0 -.32em var(--acc2)}
+.lead{font-size:18px;color:var(--mut);max-width:680px;margin:0}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:40px;border-top:2px solid var(--ink)}
+.kpi div{padding:16px 18px 6px 0}.kpi span.num{color:var(--ink);font-size:46px;font-weight:900;line-height:1.1;display:block}.kpi span{font-size:13px;color:var(--mut)}
+section{display:grid;grid-template-columns:150px minmax(0,1fr);gap:28px;padding:56px 0 8px;border-bottom:1px solid var(--line)}
+section>aside{font-size:12px;color:var(--mut);letter-spacing:.06em}section>aside b{display:block;font-family:'Noto Serif KR',serif;font-size:34px;color:var(--ink);line-height:1}
+@media(max-width:760px){section{grid-template-columns:minmax(0,1fr);gap:8px}}section>div,.cols>div{min-width:0}
+h2{font-size:clamp(24px,3.4vw,34px);line-height:1.3;margin:0 0 12px;font-weight:900;letter-spacing:-.01em}
+h3{font-size:17px;margin:0 0 4px}
+p{margin:0 0 14px}.mut{color:var(--mut)}.note{font-size:13px;color:var(--mut)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:0;border-top:1px solid var(--ink);margin:18px 0}
+.cols>div{padding:16px 22px 10px 0}.cols>div+div{padding-left:22px;border-left:1px solid var(--line)}
+@media(max-width:760px){.cols>div+div{border-left:0;padding-left:0;border-top:1px solid var(--line)}}
+.fig{background:var(--pn);border:1px solid var(--line);padding:18px;margin:18px 0}.fig>b{display:block;margin-bottom:6px}
+svg{width:100%;height:auto;display:block}svg text{font-family:'Noto Sans KR',sans-serif}
+.tw{overflow-x:auto;border-top:2px solid var(--ink);border-bottom:1px solid var(--ink);margin:16px 0}
+table{border-collapse:collapse;width:100%;min-width:700px;font-size:14px}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;color:var(--mut);font-weight:700}
+tr:last-child td,tr:last-child th{border-bottom:0}.me{background:var(--acc2)}th.me{color:var(--acc)}
+.rows div{display:grid;grid-template-columns:92px 1fr 60px;gap:10px;align-items:center;padding:5px 6px;cursor:pointer;font-size:14px;border-bottom:1px solid var(--line)}
+.rows div.on{background:var(--acc2)}.rows i{display:block;height:12px;background:var(--ink)}.rows .on i{background:var(--acc)}.rows span:last-child{text-align:right;font-variant-numeric:tabular-nums}
+label{display:block;font-size:13px;color:var(--mut);margin-top:12px}label b{float:right;color:var(--ink)}input[type=range]{width:100%;accent-color:var(--acc)}
+.big{font-family:'Noto Serif KR',serif;font-size:60px;font-weight:900;line-height:1}
+.btn{font:inherit;font-size:14px;font-weight:700;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:8px 16px;margin:0 6px 6px 0;cursor:pointer;border-radius:0}
+.btn.p{background:var(--acc);border-color:var(--acc);color:#fff}.btn.on{background:var(--ink);color:var(--bg)}
+.sc{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:16px}
+.sc>div{background:var(--pn);border:1px solid var(--line);padding:16px;transition:.25s}.sc>div.al{border-color:var(--acc);background:var(--acc2)}.sc h4{margin:0 0 8px;font-size:12px;color:var(--mut);letter-spacing:.06em}
+.ph{max-width:210px;margin:auto;border:2px solid var(--ink);border-radius:22px;padding:16px;text-align:center}.ph .big{font-size:42px}
+.st{font-weight:700}.st.r{color:var(--acc)}ul.l{padding-left:18px;margin:6px 0;font-size:14px;color:var(--mut)}
+.d5{counter-reset:d}.d5>div{counter-increment:d;border-top:1px solid var(--ink);padding:14px 0}.d5>div:before{content:"0" counter(d);font-family:'Noto Serif KR',serif;font-weight:900;color:var(--acc);margin-right:12px}.d5 h3{display:inline}.d5 p{margin:6px 0 0 34px;color:var(--mut);font-size:15px}
+.sel{font:inherit;font-size:14px;border:1px solid var(--ink);background:var(--pn);color:var(--ink);padding:6px 10px;border-radius:0;margin-right:8px}.gb{display:grid;grid-template-columns:84px 1fr 150px;gap:10px;align-items:center;font-size:14px;padding:5px 0;border-bottom:1px solid var(--line)}.gb i{display:block;height:12px;background:var(--mut)}.gb.hl i{background:var(--acc)}.gb span:last-child{text-align:right;font-variant-numeric:tabular-nums}@media(max-width:560px){.gb{grid-template-columns:70px 1fr 110px;font-size:12px}}
+footer{padding:36px 0 56px;color:var(--mut);font-size:14px}footer b{display:block;color:var(--ink);font:900 20px 'Noto Serif KR',serif;margin-bottom:6px}
+</style></head><body>
+<nav><div class="w"><b>CareBridge AI</b><a href="#problem">문제</a><a href="#vs">경쟁 비교</a><a href="#diff">차별점</a><a href="#hgi">HGI</a><a href="#sim">예측 시뮬레이터</a><a href="#aging">노령화</a><a href="#fc">예측 모델</a><a href="#zt">Zero-Touch</a><a href="#arch">아키텍처</a><a href="#shift">패러다임</a><a href="#biz">수익 모델</a><a href="#impact">파급 효과</a><a href="#src">출처</a></div></nav>
 
-<header class="hero">
-<small>2026 빅데이터 활용 현장문제 해결 경진대회 제출작</small>
-<h1>CareBridge AI</h1>
-<p>공공 빅데이터와 일상 라이프로그 연동 기반<br>지능형 모바일 홈 헬스케어 플랫폼</p>
-<div class="stats">
-<div class="stat"><b data-n="1341">0</b><span>만 명 · 2024 국내 만성질환 환자</span></div>
-<div class="stat"><b data-n="44.9" data-d="1">0</b><span>% · 65세 이상 유병 비율 (602만 명)</span></div>
-<div class="stat"><b data-n="211.7" data-d="1">0</b><span>전남 HGI · 전국 평균 100</span></div>
-</div>
-</header>
+<header><div class="w">
+<div class="kick">2026 빅데이터 활용 현장문제 해결 경진대회 제출작</div>
+<h1>환자의 45.6%는 65세 이상,<br>돌봄의 최전선은 <u>보건지소와 보건진료소</u>입니다.</h1>
+<p class="lead">CareBridge AI는 공공 빅데이터와 일상 라이프로그를 연동해, 어르신이 아무것도 조작하지 않아도 혈압·혈당이 기록되고 이상 징후가 환자·보건소·보호자에게 함께 전달되는 모바일 홈 헬스케어 플랫폼입니다.</p>
+<div class="kpi">
+<div><span class="num" data-n="13416324">0</span><span>2024 만성질환 환자(명) · 건보+의료급여, 2020년 대비 +20.4%</span></div>
+<div><span class="num" data-n="6119357">0</span><span>그중 65세 이상(명) · 전체의 45.6%</span></div>
+<div><span class="num" data-n="3607">0</span><span>전국 지역보건의료기관(개소) · 2025.12.31 기준</span></div>
+</div></div></header>
 
-<section id="problem">
-<h2>무너진 의료 수급 밸런스</h2>
-<p class="sub">초고령화 속도를 오프라인 의료 인프라가 따라가지 못합니다.</p>
-<div class="grid">
-<div class="card"><h3>폭증하는 수요</h3><p>도서·산간 지역 고령 환자 증가, 이동 제약으로 인한 병원 방문 이탈과 만성질환 합병증 악화.</p></div>
-<div class="card"><h3>부족한 공급</h3><p>상급병원·전문의의 수도권·대도시 편중, 물리적 병원 신설 속도의 한계.</p></div>
-<div class="card"><h3>전환의 필요</h3><p>공공 데이터와 일상 라이프로그를 결합한 <b>선제적 디지털 케어 체계</b>로의 전환이 절실합니다.</p></div>
-</div>
-<div class="card" style="margin-top:14px">
-<b>만성질환 환자 추이 (2020 → 2024)</b>
-<svg viewBox="0 0 600 190" role="img" aria-label="만성질환 환자 수 추이">
-<g stroke="var(--line)"><line x1="40" y1="160" x2="580" y2="160"/><line x1="40" y1="110" x2="580" y2="110"/><line x1="40" y1="60" x2="580" y2="60"/></g>
-<polygon fill="var(--navy)" opacity=".85" points="40,160 40,128 175,102 310,72 445,48 580,28 580,160"/>
-<polygon fill="var(--teal)" opacity=".9" points="40,160 40,156 175,150 310,138 445,118 580,88 580,160"/>
-<g fill="var(--mut)" font-size="12"><text x="40" y="180">2020</text><text x="170" y="180">2021</text><text x="305" y="180">2022</text><text x="440" y="180">2023</text><text x="548" y="180">2024</text></g>
-<text x="300" y="115" fill="#fff" font-size="13">전체 환자</text><text x="470" y="148" fill="#06111f" font-size="13">65세 이상</text>
-</svg>
-<p class="note">2020년 1,114만 명 → 2024년 1,341만 명(5년간 20.4% 증가). 차트는 발표 자료의 추세를 단순화한 개략도입니다.</p>
-</div>
-</section>
+<div class="w">
+<section id="problem"><aside><b>01</b>PROBLEM</aside><div>
+<h2>환자는 고령층에 몰리고, 돌봄 거점은 농어촌에 흩어져 있습니다</h2>
+<p class="lead" style="font-size:16px">수요는 고령 환자가 늘며 커지는데, 이를 받치는 접점은 보건소 외에도 보건지소·보건진료소 수천 곳으로 분산돼 있습니다. 방문 의존도가 높은 구조입니다.</p>
+<div class="cols"><div><h3>폭증하는 수요</h3><p class="mut">65세 이상 환자는 4년간 27.5% 늘었고, 80세 이상은 31.4% 늘었습니다. 65세 미만은 14.9%입니다.</p></div><div><h3>분산된 공급</h3><p class="mut">보건진료소 1,894곳 중 전남·경북·전북·충남·경남 5개 도에 약 70%가 있습니다.</p></div><div><h3>전환의 필요</h3><p class="mut">방문을 기다리는 구조에서, 일상 데이터가 먼저 신호를 보내는 선제적 디지털 케어로의 전환이 필요합니다.</p></div></div>
+<div class="fig"><b>만성질환 환자 추이 (2020 → 2024)</b><div id="trend"></div><p class="note" style="margin:6px 0 0">건강보험+의료급여 합계. 환자수 ‘*’(비공개) 16개 셀은 제외해 실제보다 소폭 적을 수 있습니다.</p></div>
+</div></section>
 
-<section id="hgi">
-<h2>의료 공백 위험 지수 (HGI)</h2>
-<p class="sub">국민건강보험공단 5개년 시계열(435행)과 공공 통계를 결합해 산출. 전국 평균 = 100.</p>
-<div class="grid">
-<div class="card"><b>HGI 상위 10개 지역</b> <span class="note">(점선 = 100)</span>
-<div id="bars"></div>
-<p class="note" id="insight" style="margin-top:10px">지역을 눌러 보세요.</p></div>
-<div class="card"><b>HGI 시뮬레이터</b>
-<p class="note">HGI = (고령화율 × 만성질환 가중치) ÷ (인구 1만명당 전문의수 × 0.7 + 상급종합병원수 × 2.5) × 100. 아래 기준값은 체험용 가정치입니다.</p>
-<label>고령화율 (%) <span id="v1"></span><input id="s1" type="range" min="10" max="40" value="19" step=".5"></label>
-<label>만성질환 가중치 <span id="v2"></span><input id="s2" type="range" min="0.5" max="2" value="1" step=".05"></label>
-<label>1만명당 전문의수 <span id="v3"></span><input id="s3" type="range" min="1" max="20" value="8" step=".5"></label>
-<label>상급종합병원수 <span id="v4"></span><input id="s4" type="range" min="0" max="3" value="0.8" step=".1"></label>
-<div style="margin-top:16px"><span class="big" id="hgiv">100</span> <span class="pill" id="hgit"></span></div>
-</div></div>
-</section>
+<section id="vs"><aside><b>02</b>LANDSCAPE</aside><div>
+<h2>이미 있는 서비스와 무엇이 다른가</h2>
+<p class="lead" style="font-size:16px">상용 서비스는 대체로 ‘기기를 사서 앱을 쓰는 개인’을 겨냥합니다. CareBridge는 ‘앱을 쓰기 어려운 고령 환자’와 ‘그들을 관리하는 보건기관’에서 출발합니다.</p>
+<div class="tw"><table>
+<tr><th></th><th>카카오헬스케어 ‘파스타’</th><th>글로벌 코칭형</th><th>웨어러블 헬스앱</th><th class="me">CareBridge AI</th></tr>
+<tr><th>주 사용자</th><td>건강관리에 적극적인 개인·기업 임직원</td><td>보험·고용주 가입자</td><td>자기 계측에 익숙한 개인</td><td class="me"><b>고령 만성질환 환자와 보건기관</b></td></tr>
+<tr><th>사용자 행동</th><td>앱 설치·확인, 혈압은 반지형 기기 구매</td><td>전용 기기 + 앱·코치</td><td>착용·충전·앱 확인</td><td class="me"><b>측정만. 앱 조작 0</b></td></tr>
+<tr><th>이상 시 알림</th><td>주로 본인 가이드</td><td>코치·본인</td><td>본인 중심</td><td class="me"><b>환자 + 보건소 + 보호자 동시</b></td></tr>
+<tr><th>고객</th><td>개인·기업·보험사, 일부 보건소 협약</td><td>고용주·보험사</td><td>개인</td><td class="me"><b>지자체 → 자녀 → 제약</b></td></tr>
+</table></div>
+<p class="note">파스타 정보는 2026년 언론 보도(혈압 기능, 반지형 혈압계 연동, 경기도 3개 보건소 협약 등) 기준이며 업로드 데이터 밖 자료입니다. 나머지 열은 일반 구조 요약이므로 발표 전 재확인하세요.</p>
+</div></section>
 
-<section id="aging" style="padding-top:24px">
-<h2>노령화 지수로 본 취약 지역</h2>
-<p class="sub">통계청·인구주택총조사 원천 데이터 분석 결과 (유소년 인구 대비 고령 인구 비율)</p>
-<div class="chips">
-<div class="chip"><b>261.74</b>전남 노령화 지수</div>
-<div class="chip"><b>259.16</b>경북 노령화 지수</div>
-<div class="chip"><b>256.69</b>강원 노령화 지수</div>
-</div>
-<div class="card"><b>Key Insight</b><p style="margin:6px 0 0">전남·경북 지역은 유소년 인구 100명당 고령 인구 비율이 압도적으로 높으며, 이는 심각한 의료 수요 폭증으로 직결됩니다.</p></div>
-</section>
+<section id="diff"><aside><b>03</b>WHY</aside><div>
+<h2>이 앱을 써야 하는 다섯 가지 이유</h2>
+<div class="d5">
+<div><h3>데이터로 거점을 찾습니다</h3><p>전국 3,607개 보건기관을 시도·유형별로 파악해 보건진료소·보건지소가 몰린 지역부터 도입 순서를 잡습니다.</p></div>
+<div><h3>조작할 필요가 없습니다</h3><p>측정 → 자동 페어링 → 암호화 동기화. 환자의 45.6%가 65세 이상인 구조에서 가장 쉬운 앱은 쓸 일이 없는 앱입니다.</p></div>
+<div><h3>이상 신호가 세 곳으로 갑니다</h3><p>임계점(수축기 140 mmHg) 초과 시 환자 음성 안내, 보건소 관제, 보호자 알림이 동시에 움직입니다.</p></div>
+<div><h3>보건소가 바로 쓰는 관제</h3><p>보건소·보건의료원 263곳이 곧 B2G 고객군입니다. 관제 대시보드 SaaS로 기존 방문 업무에 얹습니다.</p></div>
+<div><h3>한 번 깔면 세 번 수익</h3><p>지자체 구독(B2G) → 자녀 리포트·간호사 상담(B2C) → 비식별 RWD 제휴(B2B).</p></div>
+</div></div></section>
 
-<section id="zt">
-<h2>Zero-Touch UX</h2>
-<p class="sub">행동 마찰 없는 생체 데이터 파이프라인 · ‘Friction Zero’ — 앱 구동이 필요 없습니다.</p>
-<div class="zts" id="zts">
-<div class="zs"><b>Step 1. 일상 측정</b>환자가 혈압·혈당을 측정합니다.</div>
-<div class="zs"><b>Step 2. 자동 페어링</b>기기 내 모듈이 백그라운드 자동 통신(Bluetooth/NFC)을 합니다.</div>
-<div class="zs"><b>Step 3. 클라우드 동기화</b>암호화된 생체 데이터가 실시간 전송됩니다.</div>
-</div>
-<p class="note" id="zmsg" style="margin-top:10px"></p>
-<div class="row"><button id="zrun">Zero-Touch 시연</button></div>
-<p class="quote">디지털 소외 계층인 시니어에게 가장 완벽한 앱은<br>‘조작할 필요가 없는 앱’입니다.</p>
-</section>
+<section id="hgi"><aside><b>04</b>INFRASTRUCTURE</aside><div>
+<h2>시도별 지역보건기관 분포</h2>
+<p class="lead" style="font-size:16px">보건복지부 2025.12.31 기준. 지역을 눌러 유형별 구성을 보세요.</p>
+<div class="cols" style="border-top:0"><div><div class="rows" id="rows"></div></div><div><b id="rn"></b><p class="mut" id="rd" style="margin-top:6px"></p><p class="note">제공된 파일에는 인구·전문의 수가 없어 ‘지수’는 산출하지 않고, 기관 수와 유형 구성만 사실 그대로 보여줍니다.</p></div></div>
+<h3 style="margin-top:34px">시군구 단위 탐색 <span class="note">255개 시군구(구 포함) · 2025.12.31</span></h3>
+<p class="note" style="margin:4px 0 10px">보건진료소·보건지소가 많은 곳은 병원 대신 이 접점에 의존하는 지역입니다. 도입 후보를 고르는 출발점으로 쓸 수 있습니다.</p>
+<div><select id="ss" class="sel" aria-label="시도"></select><select id="sk" class="sel" aria-label="정렬"><option value="6">전체 기관 수순</option><option value="3">보건진료소 수순</option><option value="4">보건지소 수순</option></select></div>
+<div class="tw"><table style="min-width:560px"><thead><tr><th>#</th><th>시도</th><th>시군구</th><th>보건소·의료원</th><th>보건진료소</th><th>보건지소</th><th>건강생활지원센터</th><th>합계</th></tr></thead><tbody id="sgb"></tbody></table></div>
+<p class="note" id="sgn"></p>
+</div></section>
 
-<section id="sim">
+<section id="sim"><aside><b>05</b>SIMULATOR</aside><div>
+<h2>HGI 계산기 · 예측 시뮬레이터</h2>
+<p class="lead" style="font-size:16px">HGI = (고령화율 × 만성질환 가중치) ÷ (1만명당 전문의수 × 0.7 + 상급종합병원수 × 2.5) × 100</p>
+<div class="cols"><div><label>고령화율 (%) <b id="v1"></b></label><input id="r1" type="range" min="8" max="40" value="19"><label>만성질환 가중치 <b id="v4"></b></label><input id="r4" type="range" min="5" max="20" value="10"><label>1만명당 전문의수 <b id="v2"></b></label><input id="r2" type="range" min="2" max="40" value="20"><label>상급종합병원수 <b id="v3"></b></label><input id="r3" type="range" min="0" max="6" value="1"></div><div><span class="big" id="hv">100</span><p class="mut" id="hl"></p><p class="note">직접 넣는 가정값 계산기입니다. 기준점(기본 슬라이더 값)을 100으로 둔 상대 지수이며, 업로드 데이터로 산출한 실제 지역 지수가 아닙니다.</p></div></div>
+</div></section>
+
+<section id="aging"><aside><b>06</b>AGING</aside><div>
+<h2>환자 구조로 본 고령화</h2>
+<div class="kpi" style="margin-top:8px"><div><span class="num">45.6%</span><span>2024 환자 중 65세 이상</span></div><div><span class="num">58.0%</span><span>65세 이상 환자 중 여성 (354만 / 612만)</span></div><div><span class="num">61.1%</span><span>의료급여 환자 중 65세 이상 (건강보험은 44.8%)</span></div></div>
+<div class="fig"><b>2024 연령대별 환자 수 · 남성 ◀ ▶ 여성</b><div id="pyr"></div></div>
+<div class="fig"><b>연령대별 환자 증가율 (2020 → 2024)</b><div id="gro"></div><p class="note" style="margin:6px 0 0">건강보험+의료급여 합계. 의료급여 환자는 같은 기간 +16.9%, 건강보험 환자는 +20.5%입니다.</p></div>
+<div class="cols" style="border-top:2px solid var(--acc)"><div><h3 style="color:var(--acc)">Key Insight</h3><p class="mut">85세 이상 환자는 4년 새 43.0% 늘어 가장 가파릅니다. 저소득 환자(의료급여)일수록, 그리고 여성일수록 고령 비중이 큽니다. 방문 진료가 어려운 고령·여성·저소득 환자에게 Zero-Touch가 필요한 이유입니다.</p></div><div><h3>데이터 한계</h3><p class="mut">제공된 SGIS 고령화 파일에는 인구 수치 열이 없어(지역·항목 이름만 있음) 노령화 지수는 산출하지 않았습니다. 수치가 담긴 파일을 주시면 반영하겠습니다.</p></div></div>
+</div></section>
+
+<section id="fc"><aside><b>07</b>FORECAST</aside><div>
+<h2>환자 수 예측 모델 · 2030년까지</h2>
+<p class="lead" style="font-size:16px">건보 데이터(2020–2024)를 연령 22구간 × 성별 × 보험유형 단위로 나눠 구간별 추세를 선형 회귀로 외삽하고 합산했습니다. 같은 방법으로 2024년을 먼저 맞혀 본 결과(백테스트)를 함께 공개합니다.</p>
+<div class="kpi" style="margin-top:8px"><div><span class="num" id="f1"></span><span id="f1s"></span></div><div><span class="num" id="f2"></span><span id="f2s"></span></div><div><span class="num" id="f3"></span><span id="f3s"></span></div></div>
+<div class="fig"><b>환자 수 추이와 예측 (2020–2030)</b><div id="fcs"></div><p class="note" style="margin:6px 0 0">실선=실적, 점선=기준 시나리오(최근 4년 추세), 음영=시나리오 범위(최근 3·4년 추세와 5년 전체 추세 중 최소~최대).</p></div>
+<div class="tw"><table><tr><th>백테스트: 2023년까지 학습해 2024년 예측</th><th>전체 오차</th><th>65세 이상 오차</th><th>75세 이상 오차</th></tr><tbody id="bt"></tbody></table></div>
+<p class="note">환자 수는 매년 증가하지만 증가폭은 2021년 +85만 명에서 2024년 +45만 명으로 둔화돼, 로그(지수) 모델보다 선형 모델이 백테스트 오차가 작았습니다. 학습 기간이 5개 연도뿐이고 인구 구조·제도·감염병 변화는 반영하지 않은 추세 외삽이므로, 확정 예측이 아니라 시나리오 범위로 읽어야 합니다.</p>
+</div></section>
+
+<section id="zt"><aside><b>08</b>ZERO-TOUCH</aside><div>
 <h2>지능형 예방 메커니즘 체험</h2>
-<p class="sub">Zero-Touch 생체 수집 → 위험 임계점 감지 → 환자·보건소·보호자 삼각 알림. 급성 합병증 징후와 복약 이탈(Medication Non-compliance) 패턴을 선제적으로 감지합니다.</p>
-<div class="card">
-<b>수축기 혈압 실시간 스트림 <span class="note">(데모 시뮬레이션 · 실제 XGBoost/LSTM 모델이 아닙니다)</span></b>
-<svg viewBox="0 0 600 200" id="chart" role="img" aria-label="혈압 시계열">
-<rect x="0" y="0" width="600" height="200" fill="none"/>
-<line id="thr" x1="0" x2="600" stroke="var(--red)" stroke-dasharray="5 4"/>
-<text x="6" id="thrt" fill="var(--red)" font-size="12">위험 임계점 140 mmHg</text>
-<polyline id="line" fill="none" stroke="var(--navy)" stroke-width="2.5"/>
-<circle id="dot" r="6" fill="var(--teal)"/>
-</svg>
-<div class="row"><span>현재 <b id="bp">–</b> mmHg</span><span class="note" id="trend"></span></div>
-<div class="row">
-<button id="spike">위험 징후 주입</button>
-<button class="alt" id="calm">정상으로 회복</button>
-<button class="alt" id="voice">음성 가이드: 끔</button>
-<button class="alt" id="auto">자동 시연 ▶</button>
+<p class="lead" style="font-size:16px">Zero-Touch 생체 수집 → 위험 임계점 감지 → 환자·보건소·보호자 삼각 알림. 급성 합병증 징후와 복약 이탈(Medication Non-compliance) 패턴을 선제적으로 감지합니다. 디지털 소외 계층인 시니어에게 가장 완벽한 앱은 ‘조작할 필요가 없는 앱’입니다.</p>
+<div class="cols"><div><h3>Step 1. 일상 측정</h3><p class="mut">혈압·혈당을 측정합니다.</p></div><div><h3>Step 2. 자동 페어링</h3><p class="mut">Bluetooth/NFC로 백그라운드 통신.</p></div><div><h3>Step 3. 클라우드 동기화</h3><p class="mut">암호화된 생체 데이터 실시간 전송.</p></div></div>
+<div class="fig"><b>수축기 혈압 실시간 스트림 <span class="note">(데모 시뮬레이션 · 실제 XGBoost/LSTM 모델이 아닙니다)</span></b><div class="note">현재 <b id="bp" style="color:var(--ink)">120</b> mmHg · 위험 임계점 140</div>
+<svg viewBox="0 0 600 130"><line x1="0" x2="600" y1="45" y2="45" stroke="var(--acc)" stroke-dasharray="5 5"/><polyline id="ln" fill="none" stroke="var(--ink)" stroke-width="2.5"/></svg>
+<button class="btn p" id="b1">위험 징후 주입</button><button class="btn" id="b2">정상으로 회복</button><button class="btn" id="b3">음성 가이드: 끔</button><button class="btn" id="b4">자동 시연 ▶</button></div>
+<div class="sc"><div id="c1"><h4>환자</h4><p id="t1" style="margin:0">정상 범위입니다.</p></div><div id="c2"><h4>보건소</h4><p id="t2" style="margin:0">관제 대시보드: 정상</p></div><div id="c3"><h4>보호자</h4><p id="t3" style="margin:0">알림 없음</p></div></div>
+<h3 style="margin-top:28px">역할별 화면 <span class="note">같은 데이터가 세 곳에 실시간으로 반영됩니다.</span></h3>
+<div class="sc">
+<div><h4>환자 (스마트폰)</h4><div class="ph"><div class="note">CareBridge AI · 자동 측정 중</div><div class="big" id="p1">120</div><div class="note">mmHg</div><p id="pm" style="font-size:14px;margin:8px 0 4px">오늘도 건강하세요. 측정값이 자동으로 기록되고 있어요.</p><p class="note" style="margin:0">앱을 열거나 버튼을 누를 필요가 없습니다. (Zero-Touch)</p></div></div>
+<div><h4>보호자 앱</h4><b>부모님 건강 리포트</b> <span class="note">어머니 · 전남 ○○군</span><div><span class="big" style="font-size:38px" id="g1">120</span> mmHg <span class="st" id="gs">정상</span></div><ul class="l" id="al"><li>아직 알림이 없습니다.</li></ul><button class="btn" type="button">전화하기</button><button class="btn" type="button">간호사 1:1 상담</button><p class="note">B2C 프리미엄: 실시간 리포트 · 전문 간호사 상담 구독</p></div>
+<div><h4>보건소 관제</h4><div style="font-size:14px;display:flex;gap:14px;flex-wrap:wrap">관제 대상 <b>5</b> 위험군 <b id="hr">0</b> 누적 알림 <b id="hn">0</b></div><div style="overflow-x:auto"><table style="min-width:0;font-size:13px"><tr><th>어르신</th><th>지역</th><th>수축기</th><th>상태</th></tr><tr><td>★ 김○○</td><td>전남 ○○군</td><td id="h1">120</td><td class="st" id="hs">정상</td></tr><tr><td>이○○</td><td>경북 ○○군</td><td>128</td><td>정상</td></tr><tr><td>박○○</td><td>강원 ○○군</td><td>119</td><td>정상</td></tr><tr><td>최○○</td><td>전남 ○○군</td><td>134</td><td>정상</td></tr><tr><td>정○○</td><td>경북 ○○군</td><td>123</td><td>정상</td></tr></table></div><p class="note">★ = 위 시뮬레이터와 연동 · 명단과 수치는 시연용 가상 데이터입니다.</p></div></div>
+</div></section>
+
+<section id="arch"><aside><b>09</b>ARCHITECTURE</aside><div><h2>System Architecture</h2><p class="mut">End-to-End 데이터 흐름 · 단계를 눌러 보세요.</p><div id="ab"></div><div class="fig"><h3 id="at"></h3><p id="ad" class="mut" style="margin:0"></p></div></div></section>
+
+<section id="shift"><aside><b>10</b>PARADIGM</aside><div><h2>물리적 인프라에서 디지털 관제로</h2><div class="tw"><table><tr><th></th><th>케어 시점</th><th>정보의 결합</th><th>접근성/비용</th><th>확장성</th></tr><tr><th>오프라인 병원 중심</th><td>사후 치료 (발병 후 응급실)</td><td>단편적 진료실 데이터</td><td>높은 지리적 장벽 / 막대한 건립비</td><td>의료 인력 비례 물리적 한계</td></tr><tr><th class="me">CareBridge AI 중심</th><td class="me"><b>선제적 예방</b> (이상 사전 감지)</td><td class="me">진료 이력 + 24시간 <b>라이프로그</b></td><td class="me">Zero-Touch / SaaS 기반 <b>저비용</b></td><td class="me"><b>소프트웨어 복제</b> 무한 확장</td></tr></table></div></div></section>
+
+<section id="biz"><aside><b>11</b>BUSINESS</aside><div><h2>확장 가능한 플랫폼 수익 모델</h2><p class="mut">B2G를 기반으로 B2B, B2C로 확장.</p>
+<div class="cols"><div><h3>B2G · 핵심 기반</h3><p class="mut">지자체 보건소 ‘AI·IoT 어르신 건강관리 사업’ 대상 관제 대시보드 SaaS 월 구독료와 초기 구축비. 보건소·보건의료원 263곳이 기본 고객군입니다.</p></div><div><h3>B2C · 프리미엄</h3><p class="mut">타지 거주 자녀 대상 실시간 건강 리포트와 전문 간호사 1:1 상담 구독료.</p></div><div><h3>B2B · 미래 확장</h3><p class="mut">제약사·DTx 기업 대상 비식별 만성질환 리얼월드데이터(RWD) 가공 및 R&amp;D 파트너십.</p></div></div></div></section>
+
+<section id="impact"><aside><b>12</b>IMPACT</aside><div><h2>다차원적 파급 효과</h2>
+<div class="cols"><div><h3>보건 재정 절감</h3><p class="mut">응급 입원율 25% 절감 기대. 선제 예방으로 건강보험과 지자체 재정 건전성 확보. <span class="note">(발표 자료의 목표치이며 제공 데이터로 검증하지 않음)</span></p></div><div><h3>MIS 데이터 경영</h3><p class="mut">정적 공공 원천 데이터와 동적 라이프로그를 융합한 Data-Driven Healthcare 생태계.</p></div><div><h3>사회적 포용성 (ESG)</h3><p class="mut">지자체별 의료 인프라 격차 해소, Zero-Touch·음성 UX로 디지털 소외 극복.</p></div></div>
+<h3 style="margin-top:34px">절감 효과 시나리오 계산기</h3>
+<p class="note" style="margin:4px 0 0">관리 대상 규모의 기준(2024 65세 이상 환자 6,119,357명, 보건소·보건의료원 263곳)만 실제 데이터입니다. 입원율·비용·감소율은 직접 넣는 가정값입니다.</p>
+<div class="cols"><div><label>관리 대상 비율 (65세 이상 환자 중) <b id="k1"></b></label><input id="q1" type="range" min="1" max="30" value="5"><label>연간 응급 입원 발생률 (가정) <b id="k2"></b></label><input id="q2" type="range" min="1" max="30" value="8"><label>응급 입원 감소율 (발표 기대치 25%) <b id="k3"></b></label><input id="q3" type="range" min="0" max="50" value="25"><label>1건당 응급 입원 비용 (가정) <b id="k4"></b></label><input id="q4" type="range" min="100" max="1000" step="50" value="400"></div><div><span class="big" id="kv"></span><p class="mut" id="kd" style="margin-top:8px"></p><p class="note">입원 건수 × 건당 비용으로 단순 계산한 시나리오이며 실제 절감액이 아닙니다.</p></div></div></div></section>
+
+<section id="src" style="border-bottom:0"><aside><b>13</b>SOURCES</aside><div><h2>데이터 출처와 한계</h2>
+<div class="cols"><div><h3>활용 데이터</h3><ul class="l"><li>국민건강보험공단, 연도별·연령별·성별 만성질환 환자 현황(2020–2024, 435행)</li><li>보건복지부, 전국 지역보건의료기관 현황(2025.12.31, 3,607개소)</li><li>국가데이터처 SGIS 고령화 현황 지표별 데이터(2024.12.31) · 수치 열 없음, 노령화 지수는 미산출</li><li>마이헬스웨이(MyHealthWay): 연계 대상 API</li></ul></div><div><h3>이 데모의 한계</h3><ul class="l"><li>혈압 스트림, 보호자·보건소 화면의 알림과 명단은 가상 데이터이며 실제 XGBoost/LSTM 모델이 아닙니다.</li><li>HGI·절감 효과 계산기는 가정값 입력 도구입니다.</li><li>시군구 탐색은 기관 수 기준이며 인구로 보정하지 않았습니다.</li><li>예측은 5개 연도 선형 추세 외삽(백테스트 오차 공개)이며 인구 구조·정책 변화는 반영하지 않았습니다.</li><li>환자수 ‘*’(비공개) 셀은 합계에서 제외했습니다.</li><li>의료 진단 도구가 아닙니다.</li></ul></div></div></div></section>
+<footer><b>물리적 병원의 한계, 데이터로 연결하고 AI로 케어합니다.</b>CareBridge AI | Team Data-Care Innovators · 김기윤</footer>
 </div>
-<div class="tri">
-<div class="node" id="n1"><h4>환자</h4><span id="t1">정상 범위입니다.</span></div>
-<div class="node" id="n2"><h4>보건소</h4><span id="t2">관제 대시보드: 정상</span></div>
-<div class="node" id="n3"><h4>보호자</h4><span id="t3">알림 없음</span></div>
-</div></div>
-<div class="card" style="margin-top:14px">
-<b>역할별 화면</b> <span class="note">같은 데이터가 세 곳에 실시간으로 반영됩니다. 위 시뮬레이터를 조작해 보세요.</span>
-<div class="tabs" id="tabs"><button class="on" data-t="p">환자 (스마트폰)</button><button data-t="g">보호자 앱</button><button data-t="c">보건소 관제</button></div>
-<div class="pane on" id="pane-p"><div class="phone">
-<div class="ph-h"><span>CareBridge AI</span><span>자동 측정 중</span></div>
-<div class="ph-bp"><span id="pbp">–</span> <small>mmHg</small></div>
-<div class="bubble" id="pb">오늘도 건강하세요. 측정값이 자동으로 기록되고 있어요.</div>
-<p class="note" style="margin:10px 0 0">앱을 열거나 버튼을 누를 필요가 없습니다. (Zero-Touch)</p>
-</div></div>
-<div class="pane" id="pane-g"><div class="phone">
-<div class="ph-h"><span>부모님 건강 리포트</span><span>어머니 · 전남 ○○군</span></div>
-<div class="ph-bp"><span id="gbp">–</span> <small>mmHg</small> <span class="pill" id="gs">정상</span></div>
-<ul class="feed" id="gf"><li class="note">아직 알림이 없습니다.</li></ul>
-<div class="row"><button id="gcall">전화하기</button><button class="alt" id="gnurse">간호사 1:1 상담</button></div>
-<p class="note" id="gmsg" style="margin:8px 0 0">B2C 프리미엄: 실시간 리포트 · 전문 간호사 상담 구독</p>
-</div></div>
-<div class="pane" id="pane-c">
-<div class="kpis"><div class="kpi">관제 대상<b id="k1">5</b></div><div class="kpi r">위험군<b id="k2">0</b></div><div class="kpi">누적 알림<b id="k3">0</b></div></div>
-<div class="tw"><table class="dash"><thead><tr><th>어르신</th><th>지역</th><th>수축기 혈압</th><th>위험도</th><th>상태</th></tr></thead><tbody id="dtb"></tbody></table></div>
-<p class="note" style="margin-top:8px">★ = 위 시뮬레이터와 연동된 어르신 · 나머지 명단과 수치는 시연용 가상 데이터입니다.</p>
-</div>
-</div>
-</section>
-
-<section id="arch">
-<h2>System Architecture</h2>
-<p class="sub">End-to-End 데이터 흐름 · 단계를 눌러 보세요.</p>
-<div class="flow" id="flow"></div>
-<div class="card" style="margin-top:12px" id="fd"></div>
-</section>
-
-<section id="shift">
-<h2>Paradigm Shift</h2>
-<p class="sub">물리적 인프라에서 디지털 관제로</p>
-<div class="tw card"><table>
-<thead><tr><th></th><th>케어 시점</th><th>정보의 결합</th><th>접근성/비용</th><th>확장성</th></tr></thead>
-<tbody>
-<tr><th>오프라인<br>병원 중심</th><td>사후 치료<br>(발병 후 응급실)</td><td>단편적 진료실 데이터</td><td>높은 지리적 장벽 / 막대한 건립비</td><td>의료 인력 비례 물리적 한계</td></tr>
-<tr class="cb"><th>CareBridge AI<br>중심</th><td><b>선제적 예방</b><br>(이상 사전 감지)</td><td>진료 이력 + 24시간 <b>라이프로그</b></td><td>Zero-Touch / SaaS 기반 <b>저비용</b></td><td><b>소프트웨어 복제</b> 무한 확장</td></tr>
-</tbody></table></div>
-</section>
-
-<section id="biz">
-<h2>확장 가능한 플랫폼 수익 모델</h2>
-<p class="sub">B2G를 기반으로 B2B, B2C로 확장.</p>
-<div class="tier" style="background:#2c9a94"><h4>B2C · 프리미엄 부가가치</h4><p>타지 거주 자녀 대상 실시간 건강 리포트와 전문 간호사 1:1 상담 구독료.</p></div>
-<div class="tier" style="background:#2a6f98"><h4>B2B · 미래 확장 수익원</h4><p>제약사·DTx 기업 대상 비식별 만성질환 리얼월드데이터(RWD) 가공 및 R&amp;D 파트너십.</p></div>
-<div class="tier" style="background:#0f3d73"><h4>B2G · 핵심 기반 수익원</h4><p>지자체 보건소 ‘AI·IoT 어르신 건강관리 사업’ 대상 관제 대시보드 SaaS 월 구독료 및 초기 구축비.</p></div>
-</section>
-
-<section id="impact">
-<h2>다차원적 파급 효과</h2>
-<p class="sub">&nbsp;</p>
-<div class="grid">
-<div class="card"><h3>보건 재정 절감</h3><p>응급 입원율 25% 절감 기대. 선제 예방으로 건강보험과 지자체 재정 건전성 확보.</p></div>
-<div class="card"><h3>MIS 데이터 경영</h3><p>정적 공공 원천 데이터와 동적 라이프로그를 융합한 Data-Driven Healthcare 생태계.</p></div>
-<div class="card"><h3>사회적 포용성 (ESG)</h3><p>지자체별 의료 인프라 격차 해소, Zero-Touch·음성 UX로 디지털 소외 극복.</p></div>
-</div>
-</section>
-
-<section id="src" class="src">
-<h2>데이터 출처와 한계</h2>
-<p class="sub">무엇이 실제 분석 결과이고 무엇이 시연용인지 구분합니다.</p>
-<div class="grid">
-<div class="card"><h3>활용 데이터</h3><ul>
-<li>국민건강보험공단 5개년 시계열 원천 데이터(435행): 만성질환 분석, HGI 산출</li>
-<li>통계청·인구주택총조사: 노령화 지수</li>
-<li>17개 광역시도 고령 인구 구조 및 의료 인프라 용량 지표(공공 통계)</li>
-<li>마이헬스웨이(MyHealthWay): 연계 대상 API</li>
-<li>자료명·기준연도 등 세부 사항은 제출 보고서를 따릅니다.</li></ul></div>
-<div class="card"><h3>이 데모의 한계</h3><ul>
-<li>혈압 스트림, 보호자·보건소 화면의 알림과 명단은 가상 데이터이며 실제 XGBoost/LSTM 모델이 아닙니다.</li>
-<li>HGI 시뮬레이터의 기준값은 체험용 가정치입니다.</li>
-<li>환자 추이 차트는 추세를 단순화한 개략도입니다.</li>
-<li>의료 진단 도구가 아닙니다.</li></ul></div>
-</div>
-</section>
-
-<footer>
-<h3>물리적 병원의 한계, 데이터로 연결하고 AI로 케어합니다.</h3>
-<p>CareBridge AI | Team Data-Care Innovators · 김기윤</p>
-</footer>
-
 <script>
-(function(){
-// count-up
-document.querySelectorAll('[data-n]').forEach(function(el){
- var t=parseFloat(el.dataset.n),d=+el.dataset.d||0,s=performance.now();
- (function f(n){var p=Math.min((n-s)/1200,1);el.textContent=(t*p).toFixed(d).replace(/\B(?=(\d{3})+(?!\d))/g,',');if(p<1)requestAnimationFrame(f)})(s);
-});
-// HGI bars
-var R=[["전남",211.7],["경북",207.9],["강원",166.7],["충북",166.8],["전북",122.6],["충남",111.0],["경남",89.6],["제주",66.2],["울산",54.5],["부산",47.7]];
-var msg={"전남":"전남은 HGI 211.7(노령화 지수 261.74)로 전국 평균의 2배 이상, 가장 취약한 지역입니다.","경북":"경북은 HGI 207.9(노령화 지수 259.16)로 전남과 함께 실질적 취약 지역으로 확인되었습니다.","강원":"강원은 HGI 166.7, 노령화 지수 256.69입니다."};
-var bars=document.getElementById('bars');
-R.forEach(function(r){
- var d=document.createElement('div');d.className='bar';
- d.innerHTML='<span>'+r[0]+'</span><div class="track"><i></i></div><span>'+r[1].toFixed(1)+'</span>';
- d.onclick=function(){bars.querySelectorAll('.bar').forEach(function(x){x.classList.remove('sel')});d.classList.add('sel');
-  document.getElementById('insight').textContent=msg[r[0]]||(r[0]+' HGI '+r[1]+(r[1]>100?' · 전국 평균 초과':' · 전국 평균 이하'));};
- bars.appendChild(d);
- setTimeout(function(){d.querySelector('i').style.width=(r[1]/220*100)+'%'},100);
-});
-document.querySelector('.track').parentNode.parentNode;
-// HGI calc (baseline = 19%,1.0,8,0.8)
-function raw(a,w,s,h){return (a*w)/(s*0.7+h*2.5)}
-var base=raw(19,1,8,0.8);
-function calc(){
- var v=[1,2,3,4].map(function(i){var x=+document.getElementById('s'+i).value;document.getElementById('v'+i).textContent=x;return x});
- var h=raw(v[0],v[1],v[2],v[3])/base*100;
- document.getElementById('hgiv').textContent=h.toFixed(1);
- var p=document.getElementById('hgit');
- p.textContent=h>150?'고위험 공백':h>100?'주의':'양호';
- p.style.background=h>150?'#c0281f':h>100?'#c97a10':'#1f8a6b';
-}
-[1,2,3,4].forEach(function(i){document.getElementById('s'+i).oninput=calc});calc();
-// simulator
-var N=60,data=[],mode=0,voice=false,alerted=false,v=122,thr=140;
-for(var i=0;i<N;i++)data.push(122);
-var Y=function(x){return 190-(x-90)*(180/90)};
-document.getElementById('thr').setAttribute('y1',Y(thr));document.getElementById('thr').setAttribute('y2',Y(thr));
-document.getElementById('thrt').setAttribute('y',Y(thr)-5);
-function speak(t){if(!voice||!window.speechSynthesis)return;try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='ko-KR';u.rate=.9;speechSynthesis.speak(u)}catch(e){}}
-function setNodes(on){logEv(on);
- ['n1','n2','n3'].forEach(function(id){document.getElementById(id).classList.toggle('on',on)});
- document.getElementById('t1').textContent=on?'“어르신, 혈압이 평소보다 높습니다. 약을 드실 시간입니다.”':'정상 범위입니다.';
- document.getElementById('t2').textContent=on?'관제 대시보드에 위험군 적색 표출':'관제 대시보드: 정상';
- document.getElementById('t3').textContent=on?'타지 거주 자녀 앱으로 실시간 푸시 발송':'알림 없음';
-}
-function tick(){
- var target=mode?158:122;v+=(target-v)*.18+(Math.random()-.5)*5;
- data.push(v);data.shift();
- var pts=data.map(function(x,i){return (i/(N-1)*600).toFixed(1)+','+Y(Math.max(90,Math.min(180,x))).toFixed(1)}).join(' ');
- document.getElementById('line').setAttribute('points',pts);
- var last=pts.split(' ').pop().split(',');var dot=document.getElementById('dot');dot.setAttribute('cx',last[0]);dot.setAttribute('cy',last[1]);
- document.getElementById('bp').textContent=Math.round(v);
- var slope=data[N-1]-data[N-8];
- document.getElementById('trend').textContent=slope>8?'▲ 상승 패턴 감지':slope<-8?'▼ 하강 중':'안정적';
- var over=v>thr;
- if(over&&!alerted){alerted=true;setNodes(true);speak('어르신, 혈압이 평소보다 높습니다. 약을 드실 시간입니다.')}
- if(!over&&alerted&&v<thr-6){alerted=false;setNodes(false)}
-}
-var SR=[["김○○ (78) ★","전남 ○○군",0],["박○○ (82)","경북 ○○군",135],["이○○ (74)","강원 ○○군",126],["최○○ (80)","전남 ○○군",133],["정○○ (76)","충북 ○○군",119]];
-var feed=[],ac=0,at=[];
-function stt(b){return b>=140?["위험","hi"]:b>=130?["주의","md"]:["정상",""]}
-function risk(b){return Math.round(Math.max(0,Math.min(100,(b-110)/50*100)))}
-function ts(){return new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}
-function logEv(on){
- if(on){ac++;feed.unshift(ts()+' ⚠ 혈압 '+Math.round(v)+' mmHg · 임계점 초과, 푸시 알림 발송')}
- else if(feed.length){feed.unshift(ts()+' ✔ 혈압 안정, 정상 범위로 돌아왔습니다')}
- feed=feed.slice(0,5);
- document.getElementById('gf').innerHTML=feed.map(function(x){return '<li>'+x+'</li>'}).join('');
-}
-function paint(){
- var b=Math.round(v),st=stt(v);
- document.getElementById('pbp').textContent=b;document.getElementById('gbp').textContent=b;
- var pb=document.getElementById('pb');pb.classList.toggle('alert',alerted);
- pb.textContent=alerted?'“어르신, 혈압이 평소보다 높습니다. 약을 드실 시간입니다.”':'오늘도 건강하세요. 측정값이 자동으로 기록되고 있어요.';
- var g=document.getElementById('gs');g.textContent=st[0];g.style.background=st[0]=='위험'?'#c0281f':st[0]=='주의'?'#c97a10':'#1f8a6b';
- var rows=SR.map(function(r,i){return {n:r[0],a:r[1],b:i==0?v:r[2]+Math.sin(Date.now()/4000+i)*3}}).sort(function(x,y){return y.b-x.b});
- var hi=0;
- document.getElementById('dtb').innerHTML=rows.map(function(r){var s=stt(r.b);if(s[0]=='위험')hi++;
-  return '<tr class="'+s[1]+'"><td>'+r.n+'</td><td>'+r.a+'</td><td>'+Math.round(r.b)+'</td><td>'+risk(r.b)+'</td><td>'+s[0]+'</td></tr>'}).join('');
- document.getElementById('k2').textContent=hi;document.getElementById('k3').textContent=ac;
-}
-document.getElementById('tabs').onclick=function(e){var t=e.target.dataset&&e.target.dataset.t;if(!t)return;
- this.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x.dataset.t==t)});
- ['p','g','c'].forEach(function(k){document.getElementById('pane-'+k).classList.toggle('on',k==t)})};
-document.getElementById('gcall').onclick=function(){document.getElementById('gmsg').textContent='어머니께 전화를 겁니다… (시연)'};
-document.getElementById('gnurse').onclick=function(){document.getElementById('gmsg').textContent='전문 간호사 1:1 상담에 연결합니다… (시연)'};
-function clearAuto(){at.forEach(clearTimeout);at=[];document.getElementById('auto').textContent='자동 시연 ▶'}
-setInterval(function(){tick();paint()},600);paint();
-document.getElementById('spike').onclick=function(){clearAuto();mode=1};
-document.getElementById('calm').onclick=function(){clearAuto();mode=0};
-document.getElementById('auto').onclick=function(){clearAuto();mode=0;this.textContent='시연 중…';
- at.push(setTimeout(function(){mode=1},2500));
- at.push(setTimeout(function(){mode=0},12000));
- at.push(setTimeout(clearAuto,20000))};
-document.getElementById('voice').onclick=function(){voice=!voice;this.textContent='음성 가이드: '+(voice?'켬':'끔')};
-// zero-touch
-var ZM=["환자가 혈압·혈당을 평소처럼 측정합니다. 앱을 열 필요가 없어요.","기기 내 모듈이 백그라운드에서 자동으로 통신합니다.","암호화된 생체 데이터가 클라우드로 실시간 전송됩니다."];
-var zs=document.querySelectorAll('.zs'),zt=null;
-function zset(i){zs.forEach(function(e,k){e.classList.toggle('on',k<=i&&i>=0)});document.getElementById('zmsg').textContent=i>=0?ZM[i]:''}
-zs.forEach(function(e,k){e.onclick=function(){clearInterval(zt);zset(k)}});
-document.getElementById('zrun').onclick=function(){clearInterval(zt);var i=-1;zset(-1);zt=setInterval(function(){i++;zset(i);if(i>=2)clearInterval(zt)},1100)};
-zset(0);
-// architecture
-var S=[["1. Data Ingestion (수집)","IoT 생체 기기(혈압·혈당·양압기) 연동, 마이헬스웨이(MyHealthWay) API 연계.","#0f3d73"],
-["2. Preprocessing (전처리)","실시간 데이터 비식별화·암호화, 결측치 보정 및 시계열 가공 파이프라인.","#2a5fa3"],
-["3. AI Analytics (분석)","XGBoost / LSTM 모델 적용, 복약 이탈 및 급성 합병증 위험 스코어링 산출.","#2a7f93"],
-["4. Action Output (실행)","고령자 맞춤형 AI 음성 가이드 송출, 보건소·보호자 관제 앱 긴급 알림 발송.","#2c9a94"]];
-var fl=document.getElementById('flow'),fd=document.getElementById('fd');
-S.forEach(function(s,i){var d=document.createElement('div');d.className='step';d.style.background=s[2];
- d.innerHTML='<h4>'+s[0]+'</h4><p>'+s[1].split(',')[0]+'…</p>';
- d.onclick=function(){fl.querySelectorAll('.step').forEach(function(x){x.classList.remove('on')});d.classList.add('on');fd.innerHTML='<b>'+s[0]+'</b><p style="margin:6px 0 0">'+s[1]+'</p>'};
- fl.appendChild(d);if(i==0)d.click()});
+var D={"sg":[["강원", "강릉시", 1, 9, 7, 3, 20], ["강원", "고성군", 1, 9, 3, 1, 14], ["강원", "동해시", 1, 0, 2, 1, 4], ["강원", "삼척시", 1, 6, 8, 0, 15], ["강원", "속초시", 1, 0, 0, 0, 1], ["강원", "양구군", 1, 3, 4, 0, 8], ["강원", "양양군", 1, 5, 5, 0, 11], ["강원", "영월군", 1, 5, 8, 0, 14], ["강원", "원주시", 1, 8, 9, 2, 20], ["강원", "인제군", 1, 5, 5, 0, 11], ["강원", "정선군", 1, 11, 7, 0, 19], ["강원", "철원군", 1, 7, 4, 1, 13], ["강원", "춘천시", 1, 13, 10, 1, 25], ["강원", "태백시", 1, 1, 1, 1, 4], ["강원", "평창군", 1, 15, 6, 1, 23], ["강원", "홍천군", 1, 18, 7, 2, 28], ["강원", "화천군", 1, 6, 4, 0, 11], ["강원", "횡성군", 1, 8, 8, 0, 17], ["경기", "가평군", 1, 15, 5, 0, 21], ["경기", "경기도", 0, 0, 0, 1, 1], ["경기", "고양시 덕양구", 1, 0, 0, 2, 3], ["경기", "고양시 일산동구", 1, 0, 0, 0, 1], ["경기", "고양시 일산서구", 1, 0, 0, 0, 1], ["경기", "과천시", 1, 0, 0, 1, 2], ["경기", "광명시", 1, 0, 0, 3, 4], ["경기", "광주시", 1, 11, 3, 1, 16], ["경기", "구리시", 1, 0, 1, 1, 3], ["경기", "군포시", 1, 0, 1, 1, 3], ["경기", "김포시", 1, 7, 6, 0, 14], ["경기", "남양주시", 3, 1, 2, 5, 11], ["경기", "동두천시", 1, 0, 0, 0, 1], ["경기", "부천시 소사구", 1, 0, 0, 0, 1], ["경기", "부천시 오정구", 1, 0, 0, 0, 1], ["경기", "부천시 원미구", 1, 0, 0, 0, 1], ["경기", "성남시 분당구", 1, 0, 1, 0, 2], ["경기", "성남시 수정구", 1, 0, 0, 0, 1], ["경기", "성남시 중원구", 1, 0, 0, 0, 1], ["경기", "수원시 권선구", 1, 0, 0, 0, 1], ["경기", "수원시 영통구", 1, 0, 0, 0, 1], ["경기", "수원시 장안구", 1, 0, 0, 0, 1], ["경기", "수원시 팔달구", 1, 0, 0, 0, 1], ["경기", "시흥시", 1, 1, 1, 2, 5], ["경기", "안산시", 0, 0, 0, 2, 2], ["경기", "안산시 단원구", 1, 2, 2, 0, 5], ["경기", "안산시 상록구", 1, 0, 1, 0, 2], ["경기", "안성시", 1, 15, 9, 1, 26], ["경기", "안양시 동안구", 1, 0, 0, 0, 1], ["경기", "안양시 만안구", 1, 0, 0, 0, 1], ["경기", "양주시", 1, 3, 2, 2, 8], ["경기", "양평군", 1, 17, 9, 1, 28], ["경기", "여주시", 1, 13, 7, 1, 22], ["경기", "연천군", 1, 7, 7, 0, 15], ["경기", "오산시", 1, 0, 0, 1, 2], ["경기", "용인시 기흥구", 1, 2, 0, 0, 3], ["경기", "용인시 수지구", 1, 0, 0, 0, 1], ["경기", "용인시 처인구", 1, 7, 6, 0, 14], ["경기", "의왕시", 1, 0, 1, 0, 2], ["경기", "의정부시", 1, 0, 0, 0, 1], ["경기", "이천시", 1, 15, 6, 2, 24], ["경기", "파주시", 2, 7, 5, 0, 14], ["경기", "평택시", 2, 11, 9, 1, 23], ["경기", "포천시", 1, 9, 7, 1, 18], ["경기", "하남시", 1, 0, 1, 1, 3], ["경기", "화성시", 3, 11, 10, 0, 24], ["경남", "거제시", 1, 12, 10, 0, 23], ["경남", "거창군", 1, 18, 11, 0, 30], ["경남", "고성군", 1, 12, 13, 0, 26], ["경남", "김해시", 2, 1, 7, 2, 12], ["경남", "남해군", 1, 15, 9, 0, 25], ["경남", "밀양시", 1, 15, 9, 0, 25], ["경남", "사천시", 1, 12, 7, 1, 21], ["경남", "산청군", 1, 15, 9, 0, 25], ["경남", "양산시", 2, 2, 4, 1, 9], ["경남", "의령군", 1, 10, 11, 0, 22], ["경남", "진주시", 1, 13, 13, 1, 28], ["경남", "창녕군", 1, 19, 13, 0, 33], ["경남", "창원시", 3, 5, 10, 0, 18], ["경남", "창원시 성산구", 0, 0, 0, 1, 1], ["경남", "창원시 진해구", 0, 0, 0, 1, 1], ["경남", "통영시", 1, 18, 3, 0, 22], ["경남", "하동군", 1, 18, 12, 0, 31], ["경남", "함안군", 1, 9, 6, 1, 17], ["경남", "함양군", 1, 11, 10, 0, 22], ["경남", "합천군", 1, 15, 16, 0, 32], ["경북", "경산시", 1, 10, 8, 0, 19], ["경북", "경주시", 1, 16, 12, 0, 29], ["경북", "고령군", 1, 10, 7, 0, 18], ["경북", "구미시", 2, 12, 8, 1, 23], ["경북", "김천시", 1, 16, 15, 1, 33], ["경북", "문경시", 1, 13, 9, 0, 23], ["경북", "봉화군", 1, 7, 9, 0, 17], ["경북", "상주시", 1, 25, 18, 0, 44], ["경북", "성주군", 1, 11, 9, 0, 21], ["경북", "안동시", 1, 25, 14, 0, 40], ["경북", "영덕군", 1, 13, 8, 0, 22], ["경북", "영양군", 1, 8, 5, 0, 14], ["경북", "영주시", 1, 13, 10, 0, 24], ["경북", "영천시", 1, 13, 11, 0, 25], ["경북", "예천군", 1, 15, 10, 0, 26], ["경북", "울릉군", 1, 5, 0, 0, 6], ["경북", "울진군", 1, 16, 9, 0, 26], ["경북", "의성군", 1, 21, 17, 0, 39], ["경북", "청도군", 1, 10, 8, 0, 19], ["경북", "청송군", 1, 8, 6, 0, 15], ["경북", "칠곡군", 1, 10, 7, 0, 18], ["경북", "포항시 남구", 1, 10, 7, 0, 18], ["경북", "포항시 북구", 1, 12, 6, 0, 19], ["광주", "광산구", 1, 7, 1, 2, 11], ["광주", "남구", 1, 2, 0, 2, 5], ["광주", "동구", 1, 0, 0, 1, 2], ["광주", "북구", 1, 0, 0, 2, 3], ["광주", "서구", 1, 1, 0, 2, 4], ["대구", "군위군", 1, 10, 7, 0, 18], ["대구", "남구", 1, 0, 0, 0, 1], ["대구", "달서구", 1, 0, 1, 0, 2], ["대구", "달성군", 1, 8, 7, 0, 16], ["대구", "동구", 1, 0, 0, 0, 1], ["대구", "북구", 1, 0, 1, 1, 3], ["대구", "서구", 1, 0, 0, 0, 1], ["대구", "수성구", 1, 0, 0, 1, 2], ["대구", "중구", 1, 0, 0, 0, 1], ["대전", "대덕구", 1, 1, 0, 1, 3], ["대전", "동구", 1, 1, 1, 0, 3], ["대전", "서구", 1, 1, 2, 0, 4], ["대전", "유성구", 1, 3, 2, 0, 6], ["대전", "중구", 1, 1, 0, 1, 3], ["부산", "강서구", 1, 3, 4, 0, 8], ["부산", "금정구", 1, 0, 0, 2, 3], ["부산", "기장군", 1, 2, 2, 0, 5], ["부산", "남구", 1, 0, 0, 5, 6], ["부산", "동구", 1, 0, 0, 1, 2], ["부산", "동래구", 1, 0, 0, 1, 2], ["부산", "부산진구", 1, 0, 0, 0, 1], ["부산", "부산진구", 0, 0, 0, 3, 3], ["부산", "북구", 1, 0, 1, 0, 2], ["부산", "사상구", 1, 0, 0, 0, 1], ["부산", "사하구", 1, 0, 0, 2, 3], ["부산", "서구", 1, 0, 0, 0, 1], ["부산", "수영구", 1, 0, 0, 0, 1], ["부산", "연제구", 1, 0, 0, 1, 2], ["부산", "영도구", 1, 0, 0, 0, 1], ["부산", "중구", 1, 0, 0, 1, 2], ["부산", "해운대구", 1, 0, 1, 0, 2], ["서울", "강남구", 1, 0, 0, 0, 1], ["서울", "강동구", 1, 0, 2, 0, 3], ["서울", "강북구", 1, 0, 2, 0, 3], ["서울", "강서구", 1, 0, 1, 0, 2], ["서울", "관악구", 1, 0, 1, 0, 2], ["서울", "광진구", 1, 0, 2, 0, 3], ["서울", "구로구", 1, 0, 2, 0, 3], ["서울", "금천구", 1, 0, 2, 0, 3], ["서울", "노원구", 1, 0, 4, 0, 5], ["서울", "도봉구", 1, 0, 1, 0, 2], ["서울", "동대문구", 1, 0, 0, 0, 1], ["서울", "동작구", 1, 0, 1, 0, 2], ["서울", "마포구", 1, 0, 2, 0, 3], ["서울", "서대문구", 1, 0, 1, 0, 2], ["서울", "서초구", 1, 0, 2, 0, 3], ["서울", "성동구", 1, 0, 2, 0, 3], ["서울", "성북구", 1, 0, 3, 0, 4], ["서울", "송파구", 1, 0, 1, 0, 2], ["서울", "양천구", 1, 0, 2, 0, 3], ["서울", "영등포구", 1, 0, 0, 0, 1], ["서울", "용산구", 1, 0, 0, 0, 1], ["서울", "은평구", 1, 0, 3, 0, 4], ["서울", "종로구", 1, 0, 0, 0, 1], ["서울", "중구", 1, 0, 3, 0, 4], ["서울", "중랑구", 1, 0, 1, 0, 2], ["세종", "세종", 1, 7, 10, 0, 18], ["세종", "세종특별자치시", 0, 0, 0, 1, 1], ["울산", "남구", 1, 0, 1, 1, 3], ["울산", "동구", 1, 0, 0, 0, 1], ["울산", "북구", 1, 2, 0, 1, 4], ["울산", "울주군", 1, 9, 7, 0, 17], ["울산", "중구", 1, 0, 0, 0, 1], ["인천", "강화군", 1, 13, 13, 0, 27], ["인천", "계양구", 1, 0, 1, 1, 3], ["인천", "남동구", 1, 0, 0, 2, 3], ["인천", "동구", 1, 0, 0, 1, 2], ["인천", "미추홀구", 1, 0, 1, 0, 2], ["인천", "부평구", 1, 0, 1, 2, 4], ["인천", "서구", 1, 0, 0, 6, 7], ["인천", "연수구", 1, 0, 0, 1, 2], ["인천", "옹진군", 1, 11, 8, 0, 20], ["인천", "중구", 1, 1, 2, 0, 4], ["전남", "강진군", 1, 7, 10, 0, 18], ["전남", "고흥군", 1, 29, 15, 0, 45], ["전남", "곡성군", 1, 15, 8, 0, 24], ["전남", "광양시", 1, 14, 8, 3, 26], ["전남", "구례군", 1, 12, 7, 0, 20], ["전남", "나주시", 1, 15, 14, 1, 31], ["전남", "담양군", 1, 11, 11, 0, 23], ["전남", "목포시", 1, 0, 1, 0, 2], ["전남", "무안군", 1, 11, 8, 1, 21], ["전남", "보성군", 1, 15, 10, 0, 26], ["전남", "순천시", 1, 22, 9, 2, 34], ["전남", "신안군", 1, 23, 16, 0, 40], ["전남", "여수시", 1, 28, 12, 0, 41], ["전남", "영광군", 1, 13, 8, 0, 22], ["전남", "영암군", 1, 13, 10, 0, 24], ["전남", "완도군", 1, 18, 12, 1, 32], ["전남", "장성군", 1, 11, 10, 0, 22], ["전남", "장흥군", 1, 11, 8, 0, 20], ["전남", "진도군", 1, 15, 6, 0, 22], ["전남", "함평군", 1, 16, 8, 0, 25], ["전남", "해남군", 1, 18, 13, 0, 32], ["전남", "화순군", 1, 13, 12, 0, 26], ["전북", "고창군", 1, 23, 13, 0, 37], ["전북", "군산시", 1, 16, 13, 1, 31], ["전북", "김제시", 1, 25, 14, 0, 40], ["전북", "남원시", 1, 25, 15, 1, 42], ["전북", "무주군", 1, 9, 5, 0, 15], ["전북", "부안군", 1, 11, 11, 1, 24], ["전북", "순창군", 1, 17, 10, 0, 28], ["전북", "완주군", 1, 14, 11, 1, 27], ["전북", "익산시", 1, 25, 14, 3, 43], ["전북", "임실군", 1, 20, 11, 0, 32], ["전북", "장수군", 1, 11, 5, 1, 18], ["전북", "전주시", 1, 1, 0, 0, 2], ["전북", "전주시 덕진구", 1, 2, 0, 0, 3], ["전북", "전주시 완산구", 0, 0, 0, 1, 1], ["전북", "정읍시", 1, 26, 16, 0, 43], ["전북", "진안군", 1, 12, 10, 0, 23], ["제주", "서귀포시", 3, 25, 5, 1, 34], ["제주", "제주시", 3, 23, 6, 3, 35], ["충남", "계룡시", 1, 0, 2, 0, 3], ["충남", "공주시", 1, 19, 10, 0, 30], ["충남", "금산군", 1, 9, 9, 1, 20], ["충남", "논산시", 1, 26, 13, 1, 41], ["충남", "당진시", 1, 19, 11, 1, 32], ["충남", "보령시", 1, 17, 10, 0, 28], ["충남", "부여군", 1, 21, 15, 0, 37], ["충남", "서산시", 1, 15, 10, 1, 27], ["충남", "서천군", 1, 17, 10, 0, 28], ["충남", "아산시", 1, 16, 11, 1, 29], ["충남", "예산군", 1, 16, 12, 0, 29], ["충남", "천안시 동남구", 1, 11, 8, 1, 21], ["충남", "천안시 서북구", 1, 7, 4, 1, 13], ["충남", "청양군", 1, 13, 9, 0, 23], ["충남", "태안군", 1, 16, 6, 1, 24], ["충남", "홍성군", 1, 14, 10, 1, 26], ["충북", "괴산군", 1, 17, 12, 0, 30], ["충북", "단양군", 1, 15, 7, 0, 23], ["충북", "보은군", 1, 14, 8, 0, 23], ["충북", "영동군", 1, 17, 10, 0, 28], ["충북", "옥천군", 1, 16, 8, 0, 25], ["충북", "음성군", 1, 19, 8, 1, 29], ["충북", "제천시", 1, 11, 8, 1, 21], ["충북", "증평군", 1, 1, 1, 0, 3], ["충북", "진천군", 1, 7, 6, 1, 15], ["충북", "청주시 상당구", 1, 11, 4, 1, 17], ["충북", "청주시 서원구", 1, 2, 2, 0, 5], ["충북", "청주시 청원구", 1, 7, 3, 0, 11], ["충북", "청주시 흥덕구", 1, 5, 5, 0, 11], ["충북", "충주시", 1, 16, 13, 0, 30]],"gr":[["0–39세", 486217, 616926], ["40–64세", 5862812, 6680041], ["65–74세", 2700215, 3521948], ["75–84세", 1647275, 1953643], ["85세 이상", 450191, 643766]],"fc":{"fy": [2025, 2026, 2027, 2028, 2029, 2030], "lo": [[13885700, 6444433, 2719569, 1545721], [14350822, 6772501, 2840682, 1608279], [14815956, 7100568, 2961794, 1670837], [15281091, 7428636, 3082907, 1733395], [15746225, 7756703, 3204019, 1795953], [16211365, 8084771, 3325132, 1858511]], "mid": [[13902279, 6437163, 2731603, 1578258], [14377339, 6760868, 2859936, 1660339], [14852784, 7084574, 2988269, 1742420], [15329716, 7408279, 3116602, 1824500], [15807062, 7731984, 3244935, 1906580], [16284965, 8055690, 3373268, 1988661]], "hi": [[14054386, 6445545, 2728592, 1594094], [14605500, 6773442, 2855419, 1684092], [15156613, 7101338, 2982247, 1774090], [15707727, 7429234, 3109074, 1864088], [16258841, 7757131, 3235902, 1954086], [16809955, 8085027, 3362729, 2044084]], "bt": [["2020–2023 전체 추세", 1.62, 0.07, 0.42], ["2021–2023 최근 추세", 0.27, 0.32, 0.75], ["2022–2023 최근 2년", 0.19, 0.29, 0.24]], "a24": [13416324, 6119357, 2597409, 1482021]},"t": {"2020": [11146710, 4797681], "2021": [11992090, 5146704], "2022": [12486098, 5463222], "2023": [12964000, 5782316], "2024": [13416324, 6119357]}, "ab": [["0세", 14, 9], ["1-4세", 96, 129], ["5-9세", 832, 967], ["10-14세", 6511, 5006], ["15-19세", 10050, 7403], ["20-24세", 22547, 15776], ["25-29세", 54529, 33038], ["30-34세", 116639, 57227], ["35-39세", 199126, 87027], ["40-44세", 405070, 182577], ["45-49세", 554337, 299708], ["50-54세", 814421, 580487], ["55-59세", 921343, 828756], ["60-64세", 1041542, 1051800], ["65-69세", 968390, 1081290], ["70-74세", 654797, 817471], ["75-79세", 459699, 655689], ["80-84세", 304433, 533822], ["85-89세", 141344, 316253], ["90-94세", 35513, 115145], ["95-99세", 5507, 25925], ["100세이상", 663, 3416]], "r": [["전남", 19, 3, 330, 213, 3, 8, 576], ["경북", 22, 2, 299, 212, 1, 2, 538], ["경남", 21, 1, 220, 169, 4, 8, 423], ["충남", 14, 2, 236, 150, 0, 9, 411], ["전북", 11, 4, 237, 145, 3, 9, 409], ["경기", 49, 1, 154, 98, 4, 30, 336], ["충북", 13, 1, 158, 93, 2, 4, 271], ["강원", 16, 2, 129, 95, 3, 13, 258], ["인천", 10, 0, 25, 26, 0, 13, 74], ["제주", 6, 0, 48, 11, 0, 4, 69], ["서울", 25, 0, 0, 38, 0, 0, 63], ["대구", 9, 0, 18, 16, 0, 2, 45], ["부산", 16, 0, 5, 8, 0, 16, 45], ["울산", 5, 0, 11, 7, 1, 2, 26], ["광주", 5, 0, 10, 1, 0, 9, 25], ["대전", 5, 0, 7, 5, 0, 2, 19], ["세종", 1, 0, 7, 9, 1, 1, 19]]};
+(function(){var $=function(i){return document.getElementById(i)},f=function(n){return n.toLocaleString('ko-KR')},NS='http://www.w3.org/2000/svg';
+document.querySelectorAll('[data-n]').forEach(function(e){var t=+e.dataset.n,s=null;(function g(ts){s=s||ts;var p=Math.min((ts-s)/1100,1);e.textContent=f(Math.round(t*p));if(p<1)requestAnimationFrame(g)})(performance.now())});
+// trend
+var y=Object.keys(D.t),mx=14e6,s='<svg viewBox="0 0 600 220"><g stroke="var(--line)"><line x1="40" x2="580" y1="20" y2="20"/><line x1="40" x2="580" y1="90" y2="90"/><line x1="40" x2="580" y1="160" y2="160"/></g>';
+function X(i){return 70+i*115}function Y(v){return 180-v/mx*160}
+[[0,'var(--ink)','전체 환자'],[1,'var(--acc)','65세 이상']].forEach(function(k){s+='<polyline fill="none" stroke="'+k[1]+'" stroke-width="3" points="'+y.map(function(a,i){return X(i)+','+Y(D.t[a][k[0]])}).join(' ')+'"/>';y.forEach(function(a,i){if(i==0||i==4)s+='<circle cx="'+X(i)+'" cy="'+Y(D.t[a][k[0]])+'" r="4" fill="'+k[1]+'"/><text x="'+(X(i)+(i?-8:8))+'" y="'+(Y(D.t[a][k[0]])-10)+'" font-size="12" fill="'+k[1]+'" text-anchor="'+(i?'end':'start')+'">'+Math.round(D.t[a][k[0]]/1e4).toLocaleString('ko-KR')+'만</text>'})});
+s+='<g font-size="12" fill="var(--mut)">'+y.map(function(a,i){return '<text x="'+X(i)+'" y="206" text-anchor="middle">'+a+'</text>'}).join('')+'<text x="60" y="14">● 전체 환자</text><text x="150" y="14" fill="var(--acc)">● 65세 이상</text></g></svg>';$('trend').innerHTML=s;
+// pyramid
+var m=Math.max.apply(null,D.ab.map(function(r){return Math.max(r[1],r[2])})),p='<svg viewBox="0 0 600 '+(D.ab.length*17+14)+'"><line x1="300" x2="300" y1="0" y2="'+(D.ab.length*17+14)+'" stroke="var(--ink)"/>';
+D.ab.forEach(function(r,i){var w1=r[1]/m*230,w2=r[2]/m*230,o=parseInt(r[0])>=65;p+='<rect x="'+(300-w1)+'" y="'+(i*17+6)+'" width="'+w1+'" height="12" fill="'+(o?'var(--acc)':'var(--mut)')+'"/><rect x="302" y="'+(i*17+6)+'" width="'+w2+'" height="12" fill="'+(o?'var(--acc)':'var(--mut)')+'" opacity=".65"/><text x="300" y="'+(i*17+16)+'" font-size="9" text-anchor="middle" fill="var(--bg)" style="paint-order:stroke" stroke="var(--ink)" stroke-width="3">'+r[0].replace('세','')+'</text>'});
+$('pyr').innerHTML=p+'</svg><p class="note" style="margin:6px 0 0">남성 최대 '+f(m)+'명(좌) · 여성은 우측, 65세 이상은 강조색. 건강보험+의료급여 합계.</p>';
+// regions
+var R=D.r,rr=$('rows'),T=['보건소','보건의료원','보건진료소','일반보건지소','통합보건지소','건강생활지원센터'];
+function rs(k){rr.innerHTML=R.map(function(d,i){return '<div class="'+(i==k?'on':'')+'" data-i="'+i+'"><span>'+d[0]+'</span><i style="width:'+(d[7]/R[0][7]*100)+'%"></i><span>'+f(d[7])+'</span></div>'}).join('');var d=R[k];$('rn').textContent=d[0]+' · 총 '+f(d[7])+'개소';$('rd').textContent=T.map(function(t,j){return t+' '+d[j+1]}).join(' · ')+' · 보건진료소 비중 '+Math.round(d[3]/d[7]*100)+'%'}
+rr.addEventListener('click',function(e){var b=e.target.closest('[data-i]');if(b)rs(+b.dataset.i)});rs(0);
+// sim
+var r=[1,2,3,4].map(function(i){return $('r'+i)}),base=19/(20*.7+2.5);
+function hg(){var a=+r[0].value,s=+r[1].value,h=+r[2].value,w=+r[3].value/10;['v1','v2','v3','v4'].forEach(function(id,i){$(id).textContent=i==3?w.toFixed(1):r[i].value});var v=Math.round(a*w/(s*.7+h*2.5)/base*100);$('hv').textContent=v;$('hv').style.color=v>=130?'var(--acc)':'';$('hl').textContent=v>=130?'기준보다 의료 공백 위험이 큰 입력값':v>=100?'기준 이상':'기준보다 양호'}
+r.forEach(function(x){x.addEventListener('input',hg)});hg();
+// forecast
+var F=D.fc,yr=[2020,2021,2022,2023,2024].concat(F.fy);
+function X2(i){return 50+i*50}function Y2(v){return 195-v/17e6*175}
+var fs='<svg viewBox="0 0 600 235"><g stroke="var(--line)">'+[0,5e6,1e7,15e6].map(function(v){return '<line x1="40" x2="590" y1="'+Y2(v)+'" y2="'+Y2(v)+'"/>'}).join('')+'</g><g font-size="11" fill="var(--mut)">'+[0,5,10,15].map(function(v){return '<text x="36" y="'+(Y2(v*1e6)+4)+'" text-anchor="end">'+v*100+'만</text>'}).join('')+yr.map(function(a,i){return '<text x="'+X2(i)+'" y="222" text-anchor="middle">'+a+'</text>'}).join('')+'</g>';
+[[0,'var(--ink)','전체 환자'],[1,'var(--acc)','65세 이상']].forEach(function(k){var a24=F.a24[k[0]],up=F.fy.map(function(_,i){return X2(5+i)+','+Y2(Math.max(F.hi[i][k[0]],F.lo[i][k[0]],F.mid[i][k[0]]))}),dn=F.fy.map(function(_,i){return X2(5+i)+','+Y2(Math.min(F.hi[i][k[0]],F.lo[i][k[0]],F.mid[i][k[0]]))}).reverse(),an=X2(4)+','+Y2(a24);
+fs+='<polygon points="'+an+' '+up.join(' ')+' '+dn.join(' ')+'" fill="'+k[1]+'" opacity=".15"/><polyline fill="none" stroke="'+k[1]+'" stroke-width="3" points="'+y.map(function(a,i){return X2(i)+','+Y2(D.t[a][k[0]])}).join(' ')+'"/><polyline fill="none" stroke="'+k[1]+'" stroke-width="2.5" stroke-dasharray="6 5" points="'+an+' '+F.fy.map(function(_,i){return X2(5+i)+','+Y2(F.mid[i][k[0]])}).join(' ')+'"/><text x="'+(X2(10)-4)+'" y="'+(Y2(F.hi[5][k[0]])-8)+'" font-size="12" font-weight="700" text-anchor="end" fill="'+k[1]+'">'+k[2]+' '+f(Math.round(F.mid[5][k[0]]/1e4))+'만</text>'});
+$('fcs').innerHTML=fs+'</svg>';
+[[0,'전체'],[1,'65세 이상'],[3,'80세 이상']].forEach(function(k,j){var m=F.mid[5][k[0]],g=Math.round((m/F.a24[k[0]]-1)*100);$('f'+(j+1)).textContent=f(Math.round(m/1e4))+'만';$('f'+(j+1)+'s').textContent='2030 '+k[1]+' 환자(명) · 2024년 대비 +'+g+'% (시나리오 '+f(Math.round(Math.min(F.lo[5][k[0]],F.mid[5][k[0]],F.hi[5][k[0]])/1e4))+'–'+f(Math.round(Math.max(F.lo[5][k[0]],F.mid[5][k[0]],F.hi[5][k[0]])/1e4))+'만)'});
+$('bt').innerHTML=F.bt.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+r[1]+'%</td><td>'+r[2]+'%</td><td>'+r[3]+'%</td></tr>'}).join('');
+// extras
+var SG=D.sg,ss=$('ss');ss.innerHTML='<option value="">전국</option>'+R.map(function(d){return '<option>'+d[0]+'</option>'}).join('');
+function sgr(){var s=ss.value,k=+$('sk').value,L=SG.filter(function(r){return !s||r[0]==s}).sort(function(a,b){return b[k]-a[k]||b[6]-a[6]});$('sgb').innerHTML=L.slice(0,15).map(function(r,i){return '<tr><td>'+(i+1)+'</td><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td>'+r[4]+'</td><td>'+r[5]+'</td><td><b>'+r[6]+'</b></td></tr>'}).join('');var a=L.filter(function(r){return r[3]>0}).length,b=L.filter(function(r){return r[3]>=20}).length;$('sgn').textContent=(s||'전국')+' '+L.length+'개 시군구 중 '+a+'곳에 보건진료소가 있고, '+b+'곳은 20개 이상입니다. 상위 15곳 표시 · 인구로 보정하지 않은 기관 수 기준입니다.'}
+ss.addEventListener('change',sgr);$('sk').addEventListener('change',sgr);sgr();
+var G=D.gr,gm=Math.max.apply(null,G.map(function(g){return g[2]/g[1]-1}));
+$('gro').innerHTML=G.map(function(g,i){var v=g[2]/g[1]-1;return '<div class="gb'+(i>=2?' hl':'')+'"><span>'+g[0]+'</span><i style="width:'+(v/gm*100)+'%"></i><span>+'+(v*100).toFixed(1)+'% · '+f(Math.round(g[2]/1e4))+'만</span></div>'}).join('');
+var q=[1,2,3,4].map(function(i){return $('q'+i)});
+function kc(){var p=+q[0].value,a=+q[1].value,c=+q[2].value,w=+q[3].value;$('k1').textContent=p+'%';$('k2').textContent=a+'%';$('k3').textContent=c+'%';$('k4').textContent=f(w)+'만원';var N=6119357*p/100,ad=N*a/100,rd=ad*c/100,sv=rd*w/1e4;$('kv').textContent=(sv>=100?f(Math.round(sv)):sv.toFixed(1))+'억 원';$('kd').textContent='관리 대상 '+f(Math.round(N/1e4*10)/10)+'만 명(보건소·의료원 1곳당 약 '+f(Math.round(N/263))+'명) · 응급 입원 연 '+f(Math.round(rd))+'건 감소'}
+q.forEach(function(x){x.addEventListener('input',kc)});kc();
+// arch
+var A=[['① 데이터 수집','혈압계·혈당계 측정값과 마이헬스웨이(MyHealthWay) 연계 데이터를 모읍니다.'],['② 자동 전송','기기 내 모듈이 Bluetooth/NFC로 백그라운드 통신합니다. 사용자의 조작은 필요 없습니다.'],['③ 클라우드 동기화','암호화된 생체 데이터가 실시간 전송되고 공공 데이터와 결합됩니다.'],['④ AI 분석','위험 임계점과 복약 이탈 패턴을 감지합니다. (XGBoost/LSTM은 계획 단계, 데모는 시뮬레이션)'],['⑤ 알림·관제','환자 음성 안내, 보건소 관제 대시보드, 보호자 앱으로 삼각 알림을 보냅니다.']];
+function ra(k){$('ab').innerHTML=A.map(function(a,i){return '<button type="button" class="btn'+(i==k?' on':'')+'" data-i="'+i+'">'+a[0]+'</button>'}).join('');$('at').textContent=A[k][0];$('ad').textContent=A[k][1]}
+$('ab').addEventListener('click',function(e){var b=e.target.closest('button');if(b)ra(+b.dataset.i)});ra(0);
+// demo
+var data=[];for(var i=0;i<40;i++)data.push(120);var tgt=120,cur=120,hi=false,vo=false,au=null,cnt=0;
+function dr(){$('ln').setAttribute('points',data.map(function(v,i){return (i*600/39).toFixed(1)+','+(125-(v-90)*(110/70)).toFixed(1)}).join(' '))}
+function ui(){var v=$('bp').textContent;['p1','g1','h1'].forEach(function(i){$(i).textContent=v});$('pm').textContent=hi?'혈압이 높아요. 잠시 앉아 쉬세요.':'오늘도 건강하세요. 측정값이 자동으로 기록되고 있어요.';['gs','hs'].forEach(function(i){$(i).textContent=hi?'위험':'정상';$(i).className='st'+(hi?' r':'')});$('hr').textContent=hi?1:0;$('hn').textContent=cnt;$('t1').textContent=hi?'혈압이 높아요. 잠시 앉아 쉬세요. 보건소와 가족에게 알렸어요.':'정상 범위입니다.';$('t2').textContent=hi?'관제 대시보드: 위험군 1 · 확인 필요':'관제 대시보드: 정상';$('t3').textContent=hi?'어머니 혈압 임계점 초과 · 전화해 보세요':'알림 없음';['c1','c2','c3'].forEach(function(i){$(i).classList.toggle('al',hi)})}
+setInterval(function(){cur+=(tgt-cur)*.25;var v=cur+Math.random()*4-2;data.push(v);data.shift();$('bp').textContent=Math.round(v);dr();ui()},500);dr();
+$('b1').onclick=function(){if(hi)return;hi=true;tgt=152;cnt++;var l=$('al');if(l.firstChild&&l.firstChild.textContent.indexOf('아직')==0)l.innerHTML='';var li=document.createElement('li');li.textContent=new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})+' 수축기 혈압 임계점(140) 초과';l.insertBefore(li,l.firstChild);if(vo&&window.speechSynthesis){try{var u=new SpeechSynthesisUtterance('혈압이 높습니다. 잠시 앉아서 쉬세요.');u.lang='ko-KR';speechSynthesis.speak(u)}catch(e){}}};
+$('b2').onclick=function(){hi=false;tgt=120};
+$('b3').onclick=function(){vo=!vo;this.textContent='음성 가이드: '+(vo?'켬':'끔')};
+$('b4').onclick=function(){if(au){clearInterval(au);au=null;this.textContent='자동 시연 ▶';return}this.textContent='자동 시연 ■';(hi?$('b2'):$('b1')).click();au=setInterval(function(){(hi?$('b2'):$('b1')).click()},6000)};
 })();
-</script>
-</body>
-</html>
+</script></body></html>
